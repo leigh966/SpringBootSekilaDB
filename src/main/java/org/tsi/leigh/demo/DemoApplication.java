@@ -71,8 +71,13 @@ public class DemoApplication {
 	}
 
 
-	//@PostMapping("/")
-	//pu
+	@PostMapping("/add_actor")
+	public @ResponseBody
+	void addActor(@RequestParam String first_name, @RequestParam String last_name)
+	{
+		Actor a = new Actor(first_name, last_name);
+		actorRepository.save(a);
+	}
 
 /*
 	@GetMapping("/actors_to_movies")

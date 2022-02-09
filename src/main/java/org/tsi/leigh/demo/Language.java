@@ -1,5 +1,7 @@
 package org.tsi.leigh.demo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -15,6 +17,7 @@ public class Language
 
     @OneToMany
     @JoinColumn(name = "language_id", insertable = false, updatable = false)
+    @JsonIgnore
     private Set<Film> film;
 
     public Language(String name)

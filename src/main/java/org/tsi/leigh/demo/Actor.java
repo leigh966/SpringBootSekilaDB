@@ -1,4 +1,6 @@
 package org.tsi.leigh.demo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -10,13 +12,14 @@ public class Actor implements Serializable
 {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int actor_id;
 
     private String first_name;
     private String last_name;
 
     @ManyToMany(mappedBy = "actor", fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Film> films = new HashSet<>();
 
     public Actor(String first_name, String last_name)
