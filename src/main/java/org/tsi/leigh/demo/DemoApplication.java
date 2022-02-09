@@ -13,9 +13,16 @@ public class DemoApplication {
 	@Autowired
 	private LanguageRepository languageRepository;
 
-	public DemoApplication(LanguageRepository languageRepository)
+	@Autowired
+	private ActorRepository ar;
+
+	@Autowired
+	private FilmRepository fr;
+
+	public DemoApplication(LanguageRepository languageRepository, ActorRepository actorRepo)
 	{
 		this.languageRepository = languageRepository;
+		this.ar = actorRepo;
 	}
 
 	public static void main(String[] args) {
@@ -29,5 +36,15 @@ public class DemoApplication {
 		return languageRepository.findAll();
 	}
 
+	@GetMapping("/all_actors")
+	public @ResponseBody
+	Iterable<Actor> getAllActors() {return ar.findAll();}
+
+	@GetMapping("/all_films")
+	public @ResponseBody
+	Iterable<Film> getAllFilms()
+	{
+		return fr.findAll();
+	}
 
 }
