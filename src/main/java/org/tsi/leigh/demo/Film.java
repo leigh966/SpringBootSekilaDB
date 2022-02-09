@@ -18,7 +18,15 @@ public class Film implements Serializable
     private String description;
     private int release_year;
     private int language_id;
+    @ManyToOne
+    @JoinColumn(name = "language_id", insertable = false, updatable = false)
+    private Language language;
+
     private Integer original_language_id;
+    @ManyToOne
+    @JoinColumn(name = "original_language_id", insertable = false, updatable = false)
+    private Language original_language;
+
     private int rental_duration;
     private float rental_rate;
     private Integer length;
@@ -193,5 +201,25 @@ public class Film implements Serializable
     public void setActor(Set<Actor> actor)
     {
         this.actor = actor;
+    }
+
+    public Language getOriginal_language()
+    {
+        return original_language;
+    }
+
+    public void setOriginal_language(Language original_language)
+    {
+        this.original_language = original_language;
+    }
+
+    public Language getLanguage()
+    {
+        return language;
+    }
+
+    public void setLanguage(Language language)
+    {
+        this.language = language;
     }
 }

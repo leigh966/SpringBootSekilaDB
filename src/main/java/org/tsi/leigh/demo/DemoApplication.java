@@ -40,7 +40,28 @@ public class DemoApplication {
 
 	@GetMapping("/all_actors")
 	public @ResponseBody
-	Iterable<Actor> getAllActors() {return actorRepository.findAll();}
+	Iterable<Actor> getAllActors() {
+		return actorRepository.findAll();
+	}
+
+	@GetMapping("actors_text")
+	public @ResponseBody
+	String getAllActorsText()
+	{
+		Iterable<Actor> actorIterable =  actorRepository.findAll();
+		String output = "";
+		for(Actor a : actorIterable)
+		{
+			String line = "Name: " + a.getFirst_name() + " " + a.getLast_name() + ", " + "Films: {";
+			Iterable<Film> films = a.getFilms();
+			for(Film f : films)
+			{
+				line += f.getTitle() + ",";
+			}
+			output += line + "}<br><br>";
+		}
+		return output;
+	}
 
 	@GetMapping("/all_films")
 	public @ResponseBody
