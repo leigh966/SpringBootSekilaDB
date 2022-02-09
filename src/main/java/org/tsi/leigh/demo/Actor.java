@@ -11,6 +11,7 @@ import java.util.Set;
 public class Actor implements Serializable
 {
 
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int actor_id;
