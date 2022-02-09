@@ -14,15 +14,17 @@ public class DemoApplication {
 	private LanguageRepository languageRepository;
 
 	@Autowired
-	private ActorRepository ar;
+	private ActorRepository actorRepository;
 
 	@Autowired
-	private FilmRepository fr;
+	private FilmRepository filmRepository;
 
-	public DemoApplication(LanguageRepository languageRepository, ActorRepository actorRepo)
+
+	public DemoApplication(LanguageRepository languageRepository, ActorRepository actorRepo, FilmRepository filmRepo)
 	{
 		this.languageRepository = languageRepository;
-		this.ar = actorRepo;
+		this.actorRepository = actorRepo;
+		this.filmRepository = filmRepo;
 	}
 
 	public static void main(String[] args) {
@@ -38,13 +40,22 @@ public class DemoApplication {
 
 	@GetMapping("/all_actors")
 	public @ResponseBody
-	Iterable<Actor> getAllActors() {return ar.findAll();}
+	Iterable<Actor> getAllActors() {return actorRepository.findAll();}
 
 	@GetMapping("/all_films")
 	public @ResponseBody
 	Iterable<Film> getAllFilms()
 	{
-		return fr.findAll();
+		return filmRepository.findAll();
 	}
+
+/*
+	@GetMapping("/actors_to_movies")
+	public @ResponseBody
+	Iterable<String[]> getActorsToMovies()
+	{
+
+	}
+*/
 
 }

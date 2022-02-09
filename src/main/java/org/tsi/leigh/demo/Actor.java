@@ -1,10 +1,12 @@
 package org.tsi.leigh.demo;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-public class Actor
+@Table(name = "actor")
+public class Actor implements Serializable
 {
 
     @Id
@@ -13,6 +15,9 @@ public class Actor
 
     private String first_name;
     private String last_name;
+
+    @ManyToMany(mappedBy = "actor", fetch = FetchType.LAZY)
+    private Set<Film> films = new HashSet<>();
 
     public Actor(String first_name, String last_name)
     {
@@ -41,5 +46,15 @@ public class Actor
     public void setFirst_name(String first_name)
     {
         this.first_name = first_name;
+    }
+
+    public Set<Film> getFilms()
+    {
+        return films;
+    }
+
+    public void setFilms(Set<Film> films)
+    {
+        this.films = films;
     }
 }
