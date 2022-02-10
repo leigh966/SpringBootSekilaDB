@@ -23,11 +23,12 @@ public class DemoApplication {
 	private CategoryRepository categoryRepository;
 
 
-	public DemoApplication(LanguageRepository languageRepository, ActorRepository actorRepo, FilmRepository filmRepo)
+	public DemoApplication(LanguageRepository languageRepository, ActorRepository actorRepo, FilmRepository filmRepo, CategoryRepository catRepo)
 	{
 		this.languageRepository = languageRepository;
 		this.actorRepository = actorRepo;
 		this.filmRepository = filmRepo;
+		this.categoryRepository = catRepo;
 	}
 
 	public static void main(String[] args) {

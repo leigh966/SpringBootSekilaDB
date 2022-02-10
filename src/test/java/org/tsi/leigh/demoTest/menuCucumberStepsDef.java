@@ -29,13 +29,17 @@ public class menuCucumberStepsDef
     @Mock
     private ActorRepository actorRepository;
 
+    @Mock
+    private CategoryRepository categoryRepo;
+
     @BeforeEach
     void setup()
     {
         languageRepo = mock(LanguageRepository.class);
         actorRepository = mock(ActorRepository.class);
         filmRepository = mock(FilmRepository.class);
-        sekila = new DemoApplication(languageRepo, actorRepository, filmRepository);
+        categoryRepo = mock(CategoryRepository.class);
+        sekila = new DemoApplication(languageRepo, actorRepository, filmRepository, categoryRepo);
     }
 
     Language savedLanguage;
@@ -122,4 +126,33 @@ public class menuCucumberStepsDef
         verify(filmRepository).save(filmArgumentCaptor.capture());
         filmArgumentCaptor.getValue();
     }
+
+
+    Category cat;
+    @Given("We have a category to add")
+    public void choose_category()
+    {
+        setup();
+        cat = new Category("Just weird");
+    }
+
+    @When("We add the category")
+    public void add_category()
+    {
+        actual = sekila.addCategory(cat.getName());
+    }
+
+    @Then("The category will be added and we should return that it was saved")
+    public void check_category()
+    {
+        // Check that the function has told us the new language has been saved
+        String expected = "saved";
+        Assertions.assertEquals(expected, actual, "Save failed");
+
+        // Verify that the save occured
+        ArgumentCaptor<Category> categoryArgumentCaptor = ArgumentCaptor.forClass(Category.class);
+        verify(categoryRepo).save(categoryArgumentCaptor.capture());
+        categoryArgumentCaptor.getValue();
+    }
+
 }
