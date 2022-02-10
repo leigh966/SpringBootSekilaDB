@@ -19,6 +19,9 @@ public class DemoApplication {
 	@Autowired
 	private FilmRepository filmRepository;
 
+	@Autowired
+	private CategoryRepository categoryRepository;
+
 
 	public DemoApplication(LanguageRepository languageRepository, ActorRepository actorRepo, FilmRepository filmRepo)
 	{
@@ -68,6 +71,23 @@ public class DemoApplication {
 	Iterable<Film> getAllFilms()
 	{
 		return filmRepository.findAll();
+	}
+
+
+	@GetMapping("/all_categories")
+	public @ResponseBody
+	Iterable<Category> getAllCategories()
+	{
+		return categoryRepository.findAll();
+	}
+
+	@PostMapping("add_category")
+	public @ResponseBody
+			String addCategory(String name)
+	{
+		Category cat = new Category(name);
+		categoryRepository.save(cat);
+		return "saved";
 	}
 
 
