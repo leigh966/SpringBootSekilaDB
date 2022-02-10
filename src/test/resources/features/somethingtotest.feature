@@ -7,3 +7,7 @@ Feature: Add Entry
     Given We have an actor to add
     When We add the actor
     Then The actor should be added and we should return that it was saved
+  Scenario: Add Film
+    Given We have a film to add
+    When We add the film
+    Then The film will be added and we should return that it was saved

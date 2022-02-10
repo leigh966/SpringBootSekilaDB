@@ -94,4 +94,32 @@ public class menuCucumberStepsDef
         verify(actorRepository).save(actorArgumentCaptor.capture());
         actorArgumentCaptor.getValue();
     }
+
+
+    Film savedFilm;
+    @Given("We have a film to add")
+    public void choose_film()
+    {
+        setup();
+        savedFilm = new Film("Example Film", "It is a film", 1, null, 10, 9.99f, 180, 23.00f, "G", null);
+    }
+
+    @When("We add the film")
+    public void add_film()
+    {
+        actual = sekila.addFilm(savedFilm.getTitle(), savedFilm.getDescription(), savedFilm.getLanguage_id(), savedFilm.getOriginal_language_id(), savedFilm.getRental_duration(), savedFilm.getRental_rate(), savedFilm.getLength(), savedFilm.getReplacement_cost(), savedFilm.getRating(), savedFilm.getSpecial_features());
+    }
+
+    @Then("The film will be added and we should return that it was saved")
+    public void check_film()
+    {
+        // Check that the function has told us the new language has been saved
+        String expected = "saved";
+        Assertions.assertEquals(expected, actual, "Save failed");
+
+        // Verify that the save occured
+        ArgumentCaptor<Film> filmArgumentCaptor = ArgumentCaptor.forClass(Film.class);
+        verify(filmRepository).save(filmArgumentCaptor.capture());
+        filmArgumentCaptor.getValue();
+    }
 }

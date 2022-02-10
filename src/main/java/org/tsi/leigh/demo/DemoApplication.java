@@ -89,6 +89,24 @@ public class DemoApplication {
 		return "saved";
 	}
 
+	@PostMapping("add_film")
+	public @ResponseBody
+	String addFilm(@RequestParam String title,
+				   @RequestParam String description,
+				   @RequestParam int language_id,
+				   @RequestParam Integer original_language_id,
+				   @RequestParam int rental_duration,
+				   @RequestParam float rental_rate,
+				   int length,
+				   float replacement_cost,
+				   String rating,
+				   String special_features)
+	{
+		Film f = new Film(title, description, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features);
+		filmRepository.save(f);
+		return "saved";
+	}
+
 /*
 	@GetMapping("/actors_to_movies")
 	public @ResponseBody

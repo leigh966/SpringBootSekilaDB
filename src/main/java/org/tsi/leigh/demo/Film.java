@@ -52,7 +52,7 @@ public class Film implements Serializable
                     String title,
                     String description,
                     int language_id,
-                    int original_language_id,
+                    Integer original_language_id,
                     int rental_duration,
                     float rental_rate,
                     int length,
