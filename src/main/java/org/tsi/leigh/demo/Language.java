@@ -10,7 +10,7 @@ import java.util.Set;
 public class Language
 {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int language_id;
 
     private String name;
