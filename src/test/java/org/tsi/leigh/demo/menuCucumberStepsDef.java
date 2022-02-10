@@ -4,24 +4,35 @@ package org.tsi.leigh.demo;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.jupiter.api.Assertions;
 
 public class menuCucumberStepsDef
 {
+    private String filmTitle;
+    private Iterable<String> actors;
+    FilmRepository fr;
 
-    @Given("before")
-    public void before() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    @Given("film is {String}")
+    void title_is(String title)
+    {
+        filmTitle = title;
     }
-    @When("trigger")
-    public void trigger() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+
+    @When("we check who is in the film")
+    void check_actors()
+    {
+        // Set the actors
     }
-    @Then("after")
-    public void after() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+
+    @Then("{String} is in the film")
+    void isInFilm(String name)
+    {
+        boolean found = false;
+        for(String actor : actors)
+        {
+            found = found || actor == name;
+        }
+        Assertions.assertTrue(found);
     }
 
 }

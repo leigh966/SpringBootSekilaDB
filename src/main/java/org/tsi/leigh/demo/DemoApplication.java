@@ -80,6 +80,15 @@ public class DemoApplication {
 		return "saved";
 	}
 
+	@PostMapping("/add_language")
+	public @ResponseBody
+	String addLanguage(@RequestParam String name)
+	{
+		Language a = new Language(name);
+		languageRepository.save(a);
+		return "saved";
+	}
+
 /*
 	@GetMapping("/actors_to_movies")
 	public @ResponseBody
