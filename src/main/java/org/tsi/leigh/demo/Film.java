@@ -45,6 +45,17 @@ public class Film implements Serializable
                             nullable = false, updatable = false)})
     private Set<Actor> actor = new HashSet<>();
 
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "film_category",
+            joinColumns = {
+                    @JoinColumn(name = "film_id", referencedColumnName = "film_id",
+                            nullable = false, updatable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "category_id", referencedColumnName = "category_id",
+                            nullable = false, updatable = false)})
+    private Set<Category> category = new HashSet<>();
+
     public Film(){}
 
     public Film
@@ -221,5 +232,15 @@ public class Film implements Serializable
     public void setLanguage(Language language)
     {
         this.language = language;
+    }
+
+    public Set<Category> getCategory()
+    {
+        return category;
+    }
+
+    public void setCategory(Set<Category> category)
+    {
+        this.category = category;
     }
 }
