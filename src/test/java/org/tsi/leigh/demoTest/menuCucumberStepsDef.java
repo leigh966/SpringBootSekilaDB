@@ -183,4 +183,29 @@ public class menuCucumberStepsDef
     }
 
 
+    @Given("We have the id of a film we want to delete")
+    public void choose_film_id()
+    {
+        setup();
+        id = 10;
+    }
+
+    @When("We delete the film")
+    public void delete_film()
+    {
+        actual = sekila.deleteFilm(id);
+    }
+
+    @Then("The database should receive a call to delete the film")
+    public void check_film_delete()
+    {
+        // Check that the function has told us the actor has been deleted
+        String expected = "deleted";
+        Assertions.assertEquals(expected, actual, "Delete failed");
+
+        // Verify that the delete call occured
+        ArgumentCaptor<Integer> actorArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
+        verify(filmRepository).deleteById(actorArgumentCaptor.capture());
+        actorArgumentCaptor.getValue();
+    }
 }

@@ -44,6 +44,14 @@ public class DemoApplication {
 		return "deleted";
 	}
 
+	@DeleteMapping("delete_film")
+	public @ResponseBody
+	String deleteFilm(int id)
+	{
+		filmRepository.deleteById(id);
+		return "deleted";
+	}
+
 	@GetMapping("/all_languages")
 	public @ResponseBody
 	Iterable<Language> getAllLanguages()
