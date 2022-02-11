@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 public class DbController
 {
 
@@ -43,6 +45,14 @@ public class DbController
     {
         filmRepository.deleteById(id);
         return "deleted";
+    }
+
+    public Iterable<Film> getAllFilmsById(Integer id)
+    {
+        ArrayList<Integer> idList = new ArrayList<>();
+        idList.add(id);
+
+        return filmRepository.findAllById(idList);
     }
 
     public Iterable<Language> getAllLanguages()

@@ -1,6 +1,7 @@
 package org.tsi.leigh.demoTest;
 
 
+import io.cucumber.java.ParameterType;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -18,7 +19,7 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 public class menuCucumberStepsDef
 {
-    private DbController sekila;
+    private DbController controller;
     @Mock
     private LanguageRepository languageRepo; // Fake language table
 
@@ -38,10 +39,12 @@ public class menuCucumberStepsDef
         actorRepository = mock(ActorRepository.class);
         filmRepository = mock(FilmRepository.class);
         categoryRepo = mock(CategoryRepository.class);
-        sekila = new DbController(languageRepo, actorRepository, filmRepository, categoryRepo);
+        controller = new DbController(languageRepo, actorRepository, filmRepository, categoryRepo);
+        app = new DemoApplication(languageRepo, actorRepository, filmRepository, categoryRepo);
     }
 
     Language savedLanguage;
+
     @Given("We have a language to add")
     public void choose_language()
     {
@@ -50,10 +53,11 @@ public class menuCucumberStepsDef
     }
 
     String actual;
+
     @When("We add the language")
     public void add_language()
     {
-        actual = sekila.addLanguage(savedLanguage.getName());
+        actual = controller.addLanguage(savedLanguage.getName());
     }
 
     @Then("The language should be added and we should return that it was saved")
@@ -71,6 +75,7 @@ public class menuCucumberStepsDef
 
 
     Actor savedActor;
+
     @Given("We have an actor to add")
     public void choose_actor()
     {
@@ -81,7 +86,7 @@ public class menuCucumberStepsDef
     @When("We add the actor")
     public void add_actor()
     {
-        actual = sekila.addActor(savedActor.getFirst_name(), savedActor.getLast_name());
+        actual = controller.addActor(savedActor.getFirst_name(), savedActor.getLast_name());
     }
 
     @Then("The actor should be added and we should return that it was saved")
@@ -100,6 +105,7 @@ public class menuCucumberStepsDef
 
 
     Film savedFilm;
+
     @Given("We have a film to add")
     public void choose_film()
     {
@@ -110,7 +116,7 @@ public class menuCucumberStepsDef
     @When("We add the film")
     public void add_film()
     {
-        actual = sekila.addFilm(savedFilm.getTitle(), savedFilm.getDescription(), savedFilm.getLanguage_id(), savedFilm.getOriginal_language_id(), savedFilm.getRental_duration(), savedFilm.getRental_rate(), savedFilm.getLength(), savedFilm.getReplacement_cost(), savedFilm.getRating(), savedFilm.getSpecial_features());
+        actual = controller.addFilm(savedFilm.getTitle(), savedFilm.getDescription(), savedFilm.getLanguage_id(), savedFilm.getOriginal_language_id(), savedFilm.getRental_duration(), savedFilm.getRental_rate(), savedFilm.getLength(), savedFilm.getReplacement_cost(), savedFilm.getRating(), savedFilm.getSpecial_features());
     }
 
     @Then("The film will be added and we should return that it was saved")
@@ -128,6 +134,7 @@ public class menuCucumberStepsDef
 
 
     Category cat;
+
     @Given("We have a category to add")
     public void choose_category()
     {
@@ -138,7 +145,7 @@ public class menuCucumberStepsDef
     @When("We add the category")
     public void add_category()
     {
-        actual = sekila.addCategory(cat.getName());
+        actual = controller.addCategory(cat.getName());
     }
 
     @Then("The category will be added and we should return that it was saved")
@@ -156,6 +163,7 @@ public class menuCucumberStepsDef
 
 
     int id;
+
     @Given("We have the id of the actor we want to delete")
     public void choose_actor_id()
     {
@@ -166,7 +174,7 @@ public class menuCucumberStepsDef
     @When("We delete the actor")
     public void delete_actor()
     {
-        actual = sekila.deleteActor(id);
+        actual = controller.deleteActor(id);
     }
 
     @Then("The database should receive a call to delete the actor")
@@ -193,7 +201,7 @@ public class menuCucumberStepsDef
     @When("We delete the film")
     public void delete_film()
     {
-        actual = sekila.deleteFilm(id);
+        actual = controller.deleteFilm(id);
     }
 
     @Then("The database should receive a call to delete the film")
@@ -208,4 +216,6 @@ public class menuCucumberStepsDef
         verify(filmRepository).deleteById(actorArgumentCaptor.capture());
         actorArgumentCaptor.getValue();
     }
+
+
 }
