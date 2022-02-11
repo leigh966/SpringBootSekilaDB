@@ -1,4 +1,5 @@
 Feature: Delete entry
   Scenario: Delete an actor
-    When We provide an existing actor_id
-    Then We delete the actor from the database
+    Given We have the id of the actor we want to delete
+    When We delete the actor
+    Then The database should receive a call to delete the actor

@@ -144,14 +144,43 @@ public class menuCucumberStepsDef
     @Then("The category will be added and we should return that it was saved")
     public void check_category()
     {
-        // Check that the function has told us the new language has been saved
+        // Check that the function has told us the new Category has been saved
         String expected = "saved";
         Assertions.assertEquals(expected, actual, "Save failed");
 
-        // Verify that the save occured
+        // Verify that the save call occured
         ArgumentCaptor<Category> categoryArgumentCaptor = ArgumentCaptor.forClass(Category.class);
         verify(categoryRepo).save(categoryArgumentCaptor.capture());
         categoryArgumentCaptor.getValue();
     }
+
+
+    int id;
+    @Given("We have the id of the actor we want to delete")
+    public void choose_actor_id()
+    {
+        setup();
+        id = 10;
+    }
+
+    @When("We delete the actor")
+    public void delete_actor()
+    {
+        actual = sekila.deleteActor(id);
+    }
+
+    @Then("The database should receive a call to delete the actor")
+    public void check_actor_delete()
+    {
+        // Check that the function has told us the actor has been deleted
+        String expected = "deleted";
+        Assertions.assertEquals(expected, actual, "Delete failed");
+
+        // Verify that the delete call occured
+        ArgumentCaptor<Integer> actorArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
+        verify(actorRepository).deleteById(actorArgumentCaptor.capture());
+        actorArgumentCaptor.getValue();
+    }
+
 
 }
