@@ -22,6 +22,8 @@ public class DbController
     private CategoryRepository categoryRepository;
 
 
+    private Integer lastAddedFilmId;
+
     public DbController(LanguageRepository languageRepository, ActorRepository actorRepo, FilmRepository filmRepo, CategoryRepository catRepo)
     {
         this.languageRepository = languageRepository;
@@ -53,6 +55,14 @@ public class DbController
         idList.add(id);
 
         return filmRepository.findAllById(idList);
+    }
+
+    public Iterable<Actor> getAllActorsById(Integer id)
+    {
+        ArrayList<Integer> idList = new ArrayList<>();
+        idList.add(id);
+
+        return actorRepository.findAllById(idList);
     }
 
     public Iterable<Language> getAllLanguages()
@@ -120,19 +130,20 @@ public class DbController
                    Integer original_language_id,
                    int rental_duration,
                    float rental_rate,
-                   int length,
+                   Integer length,
                    float replacement_cost,
                    String rating,
                    String special_features)
     {
         Film f = new Film(title, description, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features);
         filmRepository.save(f);
+        lastAddedFilmId = f.getFilm_id();
         return "saved";
     }
 
 
-
-
-
-
+    public Integer getLastAddedFilmId()
+    {
+        return lastAddedFilmId;
+    }
 }

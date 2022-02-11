@@ -1,15 +1,10 @@
 package org.tsi.leigh.demo;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Locale;
 
 @SpringBootApplication
 @RestController
@@ -18,9 +13,17 @@ public class DemoApplication {
 
     public DbController controller;
 
+
     public DemoApplication(LanguageRepository languageRepository, ActorRepository actorRepo, FilmRepository filmRepo, CategoryRepository catRepo)
     {
         controller = new DbController(languageRepository, actorRepo, filmRepo, catRepo);
+    }
+
+    @GetMapping("get_last_film_id")
+    public @ResponseBody
+    Integer getLastFilmId()
+    {
+        return controller.getLastAddedFilmId();
     }
 
     @GetMapping("get_film")
@@ -63,6 +66,43 @@ public class DemoApplication {
     }
 
 
+    @GetMapping("get_actor")
+    public @ResponseBody
+    Iterable<Actor> getActor(@RequestParam(value = "id", required = false) Integer id,
+                            @RequestParam(value = "nameQuery", required = false) String actorQuery)
+    {
+        Iterable<Actor> table;
+        if(id != null)
+        {
+            table = controller.getAllActorsById(id);
+        }
+        else
+        {
+            table = controller.getAllActors();
+        }
+
+        if(actorQuery == null)
+        {
+            return table;
+        }
+        else
+        {
+            actorQuery = actorQuery.toUpperCase();
+            Iterator<Actor> actorIt = table.iterator();
+            ArrayList<Actor> returnActors = new ArrayList<>();
+            while(actorIt.hasNext())
+            {
+                Actor a = actorIt.next();
+                if(a.getFirst_name().contains(actorQuery) || a.getLast_name().contains(actorQuery))
+                {
+                    returnActors.add(a);
+                }
+            }
+            return returnActors;
+        }
+    }
+
+
     @PostMapping("add_film")
     public @ResponseBody
     String addFilm(@RequestParam String title,
@@ -76,7 +116,14 @@ public class DemoApplication {
                    @RequestParam String rating,
                    @RequestParam(value = "special_features", required = false) String special_features)
     {
-        return controller.addFilm(title, description, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features);
+        return controller.addFilm(title.toUpperCase(), description, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features);
+    }
+
+    @DeleteMapping("delete_film")
+    public @ResponseBody
+    String deleteFilm(@RequestParam int id)
+    {
+        return controller.deleteFilm(id);
     }
 
     @PostMapping("add_actor")

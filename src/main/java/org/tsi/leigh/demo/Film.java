@@ -66,7 +66,7 @@ public class Film implements Serializable
                     Integer original_language_id,
                     int rental_duration,
                     float rental_rate,
-                    int length,
+                    Integer length,
                     float replacement_cost,
                     String rating,
                     String special_features
