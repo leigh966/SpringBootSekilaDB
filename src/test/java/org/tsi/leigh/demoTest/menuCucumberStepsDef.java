@@ -18,7 +18,7 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 public class menuCucumberStepsDef
 {
-    private DemoApplication sekila;
+    private DbController sekila;
     @Mock
     private LanguageRepository languageRepo; // Fake language table
 
@@ -38,7 +38,7 @@ public class menuCucumberStepsDef
         actorRepository = mock(ActorRepository.class);
         filmRepository = mock(FilmRepository.class);
         categoryRepo = mock(CategoryRepository.class);
-        sekila = new DemoApplication(languageRepo, actorRepository, filmRepository, categoryRepo);
+        sekila = new DbController(languageRepo, actorRepository, filmRepository, categoryRepo);
     }
 
     Language savedLanguage;
