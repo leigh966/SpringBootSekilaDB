@@ -106,7 +106,6 @@ public class DbController
         return "saved";
     }
 
-    @PostMapping("/add_language")
     public @ResponseBody
     String addLanguage(@RequestParam String name)
     {
@@ -132,49 +131,9 @@ public class DbController
         return "saved";
     }
 
-    public @ResponseBody
-    String addFilm(@RequestParam String title,
-                   @RequestParam String description,
-                   @RequestParam int language_id,
-                   @RequestParam int rental_duration,
-                   @RequestParam float rental_rate,
-                   int length,
-                   float replacement_cost,
-                   String rating,
-                   String special_features)
-    {
-        Film f = new Film(title, description, language_id, null, rental_duration, rental_rate, length, replacement_cost, rating, special_features);
-        filmRepository.save(f);
-        return "saved";
-    }
 
-    public @ResponseBody
-    String addFilm(@RequestParam String title,
-                   @RequestParam String description,
-                   @RequestParam int language_id,
-                   @RequestParam int rental_duration,
-                   @RequestParam float rental_rate,
-                   int length,
-                   float replacement_cost,
-                   String rating)
-    {
-        Film f = new Film(title, description, language_id, null, rental_duration, rental_rate, length, replacement_cost, rating, null);
-        filmRepository.save(f);
-        return "saved";
-    }
 
-    String addFilm(@RequestParam String title,
-                   @RequestParam String description,
-                   @RequestParam int language_id,
-                   @RequestParam Integer original_language_id,
-                   @RequestParam int rental_duration,
-                   @RequestParam float rental_rate,
-                   int length,
-                   float replacement_cost,
-                   String rating)
-    {
-        Film f = new Film(title, description, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating, null);
-        filmRepository.save(f);
-        return "saved";
-    }
+
+
+
 }
