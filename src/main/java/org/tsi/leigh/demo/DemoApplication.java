@@ -35,6 +35,15 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
+
+	@DeleteMapping("delete_actor")
+	public @ResponseBody
+	String deleteActor(int id)
+	{
+		actorRepository.deleteById(id);
+		return "deleted";
+	}
+
 	@GetMapping("/all_languages")
 	public @ResponseBody
 	Iterable<Language> getAllLanguages()
