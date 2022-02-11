@@ -40,8 +40,7 @@ public class menuCucumberStepsDef
         filmRepository = mock(FilmRepository.class);
         categoryRepo = mock(CategoryRepository.class);
         controller = new DbController(languageRepo, actorRepository, filmRepository, categoryRepo);
-        app = new DemoApplication(languageRepo, actorRepository, filmRepository, categoryRepo);
-    }
+        }
 
     Language savedLanguage;
 
