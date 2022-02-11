@@ -34,4 +34,19 @@ public class DemoApplication {
         return controller.addFilm(title, description, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features);
     }
 
+    @PostMapping("add_actor")
+    public @ResponseBody
+    String addActor(@RequestParam String first_name,
+                    @RequestParam String last_name)
+    {
+        return controller.addActor(first_name, last_name);
+    }
+
+    @PostMapping
+    public @ResponseBody
+    String addCategory(@RequestParam String name)
+    {
+        return controller.addCategory(name);
+    }
+
 }

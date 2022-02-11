@@ -33,33 +33,28 @@ public class DbController
     }
 
 
-    public @ResponseBody
-    String deleteActor(int id)
+    public String deleteActor(int id)
     {
         actorRepository.deleteById(id);
         return "deleted";
     }
 
-    public @ResponseBody
-    String deleteFilm(int id)
+    public String deleteFilm(int id)
     {
         filmRepository.deleteById(id);
         return "deleted";
     }
 
-    public @ResponseBody
-    Iterable<Language> getAllLanguages()
+    public Iterable<Language> getAllLanguages()
     {
         return languageRepository.findAll();
     }
 
-    public @ResponseBody
-    Iterable<Actor> getAllActors() {
+    public Iterable<Actor> getAllActors() {
         return actorRepository.findAll();
     }
 
-    public @ResponseBody
-    String getAllActorsText()
+    public String getAllActorsText()
     {
         Iterable<Actor> actorIterable =  actorRepository.findAll();
         String output = "";
@@ -76,21 +71,18 @@ public class DbController
         return output;
     }
 
-    public @ResponseBody
-    Iterable<Film> getAllFilms()
+    public Iterable<Film> getAllFilms()
     {
         return filmRepository.findAll();
     }
 
 
-    public @ResponseBody
-    Iterable<Category> getAllCategories()
+    public Iterable<Category> getAllCategories()
     {
         return categoryRepository.findAll();
     }
 
-    public @ResponseBody
-    String addCategory(String name)
+    public String addCategory(String name)
     {
         Category cat = new Category(name);
         categoryRepository.save(cat);
@@ -98,29 +90,26 @@ public class DbController
     }
 
 
-    public @ResponseBody
-    String addActor(@RequestParam String first_name, @RequestParam String last_name)
+    public String addActor(String first_name, String last_name)
     {
         Actor a = new Actor(first_name, last_name);
         actorRepository.save(a);
         return "saved";
     }
 
-    public @ResponseBody
-    String addLanguage(@RequestParam String name)
+    public String addLanguage(String name)
     {
         Language a = new Language(name);
         languageRepository.save(a);
         return "saved";
     }
 
-    public @ResponseBody
-    String addFilm(@RequestParam String title,
-                   @RequestParam String description,
-                   @RequestParam int language_id,
-                   @RequestParam Integer original_language_id,
-                   @RequestParam int rental_duration,
-                   @RequestParam float rental_rate,
+    public String addFilm(String title,
+                   String description,
+                   int language_id,
+                   Integer original_language_id,
+                   int rental_duration,
+                   float rental_rate,
                    int length,
                    float replacement_cost,
                    String rating,
