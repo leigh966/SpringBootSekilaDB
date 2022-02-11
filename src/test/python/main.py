@@ -30,4 +30,6 @@ print(testDelete.test_delete_film(root))
 
 print(testGet.test_get_actor_by_id(root))
 
+print(testGet.test_get_actor_upper(root))
+
     
