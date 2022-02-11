@@ -119,13 +119,6 @@ public class DemoApplication {
         return controller.addFilm(title.toUpperCase(), description, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features);
     }
 
-    @DeleteMapping("delete_film")
-    public @ResponseBody
-    String deleteFilm(@RequestParam int id)
-    {
-        return controller.deleteFilm(id);
-    }
-
     @PostMapping("add_actor")
     public @ResponseBody
     String addActor(@RequestParam String first_name,
@@ -139,6 +132,13 @@ public class DemoApplication {
     String addCategory(@RequestParam String name)
     {
         return controller.addCategory(name);
+    }
+
+    @DeleteMapping("delete_film")
+    public @ResponseBody
+    String deleteFilm(@RequestParam int id)
+    {
+        return controller.deleteFilm(id);
     }
 
 }
