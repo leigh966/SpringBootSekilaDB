@@ -20,7 +20,7 @@ public class DemoApplication {
         controller = new DbController(languageRepository, actorRepo, filmRepo, catRepo);
     }
 
-    public void main(String[] args)
+    public static void main(String[] args)
     {
         System.out.println("Running Web Server...");
     }
