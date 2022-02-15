@@ -16,6 +16,7 @@ public class DemoApplication {
 
     public DemoApplication(LanguageRepository languageRepository, ActorRepository actorRepo, FilmRepository filmRepo, CategoryRepository catRepo)
     {
+        System.out.println("Running Web Server...");
         controller = new DbController(languageRepository, actorRepo, filmRepo, catRepo);
     }
 
