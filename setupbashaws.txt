@@ -1,8 +1,5 @@
 #!/bin/bash
 sudo apt update -y && sudo apt upgrade -y
-sudo apt install -y apache2
-sudo systemctl start apache2
-sudo systemctl enable apache2
 sudo apt install openjdk-17-jre -y && sudo apt install openjdk-17-jdk -y
 sudo wget -O /tmp/apache-maven-3.8.4-bin.tar.gz https://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz
 sudo tar xf /tmp/apache-maven-*.tar.gz -C /opt
