@@ -102,7 +102,7 @@ public class DemoApplication {
                 .create()
                 .username(username)
                 .password(password)
-                .url(url)
+                .url("jdbc:mysql://"+url)
                 .build();
 
 
