@@ -16,10 +16,13 @@ def test_actor_query(query,root):
         full_name = actor["first_name"] + " " + actor["last_name"]
         if query.upper() not in full_name:
             return "test failed: pulled actor '" + full_name + "' does not contain query '" + query + "'"
-    return "test passed: all actors fit the name query"
+    return "test passed: all actors fit the name query when querying " + query
 
 def test_get_actor_upper(root):
     return test_actor_query('PEN', root)
+
+def test_get_actor_lower(root):
+    return test_actor_query('aca', root)
 
 
 
