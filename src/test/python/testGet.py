@@ -10,7 +10,7 @@ def test_get_actor_by_id(root):
     return "test passed: successfully pulled expected actor by id"
 
 def test_actor_query(query,root):
-    pload = {'titleQuery':query}
+    pload = {'nameQuery':str(query)}
     actors = requests.get(root+"get_actor", params=pload).json()
     for actor in actors:
         full_name = actor["first_name"] + " " + actor["last_name"]

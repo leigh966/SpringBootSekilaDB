@@ -6,9 +6,15 @@ import tools
 import testPost
 import testDelete
 import testState
+import sys
 root = "http://localhost:8080/home/"
 
 
+
+if len(sys.argv) > 1:
+    root = "http://" + sys.argv[1] + "/home/"
+
+print("Root: " + root)
 
 print(testPost.add_film_min(root))
 
