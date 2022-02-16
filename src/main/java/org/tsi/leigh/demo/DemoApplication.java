@@ -103,6 +103,7 @@ public class DemoApplication {
                 .username(username)
                 .password(password)
                 .url("jdbc:mysql://"+url)
+                .driverClassName("com.mysql.jdbc.Driver")
                 .build();
 
 
