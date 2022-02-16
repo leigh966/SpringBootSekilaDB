@@ -2,10 +2,17 @@ package org.tsi.leigh.demo;
 
 import com.amazonaws.services.secretsmanager.*;
 import com.amazonaws.services.secretsmanager.model.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Iterator;
@@ -29,11 +36,13 @@ public class DemoApplication {
     }
 
 
+
     // Use this code snippet in your app.
 // If you need more information about configurations or implementing the sample code, visit the AWS docs:
 // https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-samples.html#prerequisites
-
-    public static void getSecret() {
+    @Bean
+    @Primary
+    public static DataSource getSecret() {
 
         String secretName = "leigh-db-secret";
         String region = "eu-west-2";
@@ -78,13 +87,25 @@ public class DemoApplication {
 
         // Decrypts secret using the associated KMS key.
         // Depending on whether the secret is a string or binary, one of these fields will be populated.
-        if (getSecretValueResult.getSecretString() != null) {
-            secret = getSecretValueResult.getSecretString();
-            System.out.println(secret);
-        }
-        else {
-            decodedBinarySecret = new String(Base64.getDecoder().decode(getSecretValueResult.getSecretBinary()).array());
-        }
+        secret = getSecretValueResult.getSecretString();
+        System.out.println(secret);
+
+        JSONObject jo = new JSONObject(secret);
+        String username = jo.get("username").toString();
+        String password = jo.get("password").toString();
+        String url = jo.get("host").toString();
+        System.out.println("Username: " + username);
+        System.out.println("Password: " + password);
+        System.out.println("Url: " + url);
+
+        return DataSourceBuilder
+                .create()
+                .username(username)
+                .password(password)
+                .url(url)
+                .build();
+
+
 
 
     }

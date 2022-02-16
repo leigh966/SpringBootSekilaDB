@@ -91,7 +91,21 @@
 			<artifactId>aws-java-sdk-secretsmanager</artifactId>
 			<version>1.11.549</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.mortbay.jetty</groupId>
+			<artifactId>jetty-util</artifactId>
+			<version>6.1.25</version>
+		</dependency>
+		<dependency>
+			<groupId>com.amazonaws.secretsmanager</groupId>
+			<artifactId>aws-secretsmanager-jdbc</artifactId>
+			<version>1.0.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20211205</version>
+		</dependency>
 	</dependencies>
 
 	<build>
