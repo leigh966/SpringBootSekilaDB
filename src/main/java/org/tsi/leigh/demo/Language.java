@@ -3,11 +3,12 @@ package org.tsi.leigh.demo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name = "language")
-public class Language
+public class Language implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
