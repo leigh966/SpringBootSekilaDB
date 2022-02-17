@@ -24,6 +24,9 @@ public class DbController
 
     private Integer lastAddedFilmId;
 
+    private final String saved = "saved";
+    private final String deleted = "deleted";
+
     public DbController(LanguageRepository languageRepository, ActorRepository actorRepo, FilmRepository filmRepo, CategoryRepository catRepo)
     {
         this.languageRepository = languageRepository;
@@ -40,13 +43,13 @@ public class DbController
     public String deleteActor(int id)
     {
         actorRepository.deleteById(id);
-        return "deleted";
+        return deleted;
     }
 
     public String deleteFilm(int id)
     {
         filmRepository.deleteById(id);
-        return "deleted";
+        return deleted;
     }
 
     public Iterable<Film> getAllFilmsById(Integer id)
@@ -106,7 +109,7 @@ public class DbController
     {
         Category cat = new Category(name);
         categoryRepository.save(cat);
-        return "saved";
+        return saved;
     }
 
 
@@ -114,14 +117,14 @@ public class DbController
     {
         Actor a = new Actor(first_name, last_name);
         actorRepository.save(a);
-        return "saved";
+        return saved;
     }
 
     public String addLanguage(String name)
     {
         Language a = new Language(name);
         languageRepository.save(a);
-        return "saved";
+        return saved;
     }
 
     public String addFilm(String title,
@@ -138,7 +141,7 @@ public class DbController
         Film f = new Film(title, description, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features);
         filmRepository.save(f);
         lastAddedFilmId = f.getFilm_id();
-        return "saved";
+        return saved;
     }
 
 
