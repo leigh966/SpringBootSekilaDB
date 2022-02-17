@@ -1,6 +1,4 @@
 package org.tsi.leigh.demoTest;
-
-
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -16,8 +14,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class menuCucumberStepsDef
+public class addEntryCucumberTests
 {
+
     private DbController controller;
     @Mock
     private LanguageRepository languageRepo; // Fake language table
@@ -31,7 +30,7 @@ public class menuCucumberStepsDef
     @Mock
     private CategoryRepository categoryRepo;
 
-    @BeforeEach
+    String actual;
     void setup()
     {
         languageRepo = mock(LanguageRepository.class);
@@ -39,56 +38,56 @@ public class menuCucumberStepsDef
         filmRepository = mock(FilmRepository.class);
         categoryRepo = mock(CategoryRepository.class);
         controller = new DbController(languageRepo, actorRepository, filmRepository, categoryRepo);
-        }
+    }
 
+
+    // Add Language
     Language savedLanguage;
 
     @Given("We have a language to add")
-    public void choose_language()
+    public void chooseLanguage()
     {
         setup();
         savedLanguage = new Language("test language");
     }
 
-    String actual;
-
     @When("We add the language")
-    public void add_language()
+    public void addLanguage()
     {
         actual = controller.addLanguage(savedLanguage.getName());
     }
 
     @Then("The language should be added and we should return that it was saved")
-    public void check_language_added()
+    public void checkLanguageIsAdded()
     {
         // Check that the function has told us the new language has been saved
         String expected = "saved";
         Assertions.assertEquals(expected, actual, "Save failed");
 
-        // Verify that the save occured
+        // Verify that the save occurred
         ArgumentCaptor<Language> languageArgumentCaptor = ArgumentCaptor.forClass(Language.class);
         verify(languageRepo).save(languageArgumentCaptor.capture());
         languageArgumentCaptor.getValue();
     }
 
 
+    // Add Actor
     Actor savedActor;
-
     @Given("We have an actor to add")
-    public void choose_actor()
+    public void chooseActor()
     {
         setup();
         savedActor = new Actor("Example", "Guy");
     }
 
     @When("We add the actor")
-    public void add_actor()
+    public void addActor()
     {
         actual = controller.addActor(savedActor.getFirst_name(), savedActor.getLast_name());
     }
 
     @Then("The actor should be added and we should return that it was saved")
-    public void check_actor_added()
+    public void checkActorAdded()
     {
         // Check that the function has told us the new language has been saved
 
@@ -102,23 +101,24 @@ public class menuCucumberStepsDef
     }
 
 
+    // Add Film
     Film savedFilm;
 
     @Given("We have a film to add")
-    public void choose_film()
+    public void chooseFilm()
     {
         setup();
         savedFilm = new Film("Example Film", "It is a film", 1, null, 10, 9.99f, 180, 23.00f, "G", null);
     }
 
     @When("We add the film")
-    public void add_film()
+    public void addFilm()
     {
         actual = controller.addFilm(savedFilm.getTitle(), savedFilm.getDescription(), savedFilm.getLanguage_id(), savedFilm.getOriginal_language_id(), savedFilm.getRental_duration(), savedFilm.getRental_rate(), savedFilm.getLength(), savedFilm.getReplacement_cost(), savedFilm.getRating(), savedFilm.getSpecial_features());
     }
 
     @Then("The film will be added and we should return that it was saved")
-    public void check_film()
+    public void checkFilm()
     {
         // Check that the function has told us the new language has been saved
         String expected = "saved";
@@ -130,24 +130,24 @@ public class menuCucumberStepsDef
         filmArgumentCaptor.getValue();
     }
 
-
+    // Add Category
     Category cat;
 
     @Given("We have a category to add")
-    public void choose_category()
+    public void chooseCategory()
     {
         setup();
         cat = new Category("Just weird");
     }
 
     @When("We add the category")
-    public void add_category()
+    public void addCategory()
     {
         actual = controller.addCategory(cat.getName());
     }
 
     @Then("The category will be added and we should return that it was saved")
-    public void check_category()
+    public void checkCategory()
     {
         // Check that the function has told us the new Category has been saved
         String expected = "saved";
@@ -158,62 +158,4 @@ public class menuCucumberStepsDef
         verify(categoryRepo).save(categoryArgumentCaptor.capture());
         categoryArgumentCaptor.getValue();
     }
-
-
-    int id;
-
-    @Given("We have the id of the actor we want to delete")
-    public void choose_actor_id()
-    {
-        setup();
-        id = 10;
-    }
-
-    @When("We delete the actor")
-    public void delete_actor()
-    {
-        actual = controller.deleteActor(id);
-    }
-
-    @Then("The database should receive a call to delete the actor")
-    public void check_actor_delete()
-    {
-        // Check that the function has told us the actor has been deleted
-        String expected = "deleted";
-        Assertions.assertEquals(expected, actual, "Delete failed");
-
-        // Verify that the delete call occured
-        ArgumentCaptor<Integer> actorArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
-        verify(actorRepository).deleteById(actorArgumentCaptor.capture());
-        actorArgumentCaptor.getValue();
-    }
-
-
-    @Given("We have the id of a film we want to delete")
-    public void choose_film_id()
-    {
-        setup();
-        id = 10;
-    }
-
-    @When("We delete the film")
-    public void delete_film()
-    {
-        actual = controller.deleteFilm(id);
-    }
-
-    @Then("The database should receive a call to delete the film")
-    public void check_film_delete()
-    {
-        // Check that the function has told us the actor has been deleted
-        String expected = "deleted";
-        Assertions.assertEquals(expected, actual, "Delete failed");
-
-        // Verify that the delete call occured
-        ArgumentCaptor<Integer> actorArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
-        verify(filmRepository).deleteById(actorArgumentCaptor.capture());
-        actorArgumentCaptor.getValue();
-    }
-
-
 }
