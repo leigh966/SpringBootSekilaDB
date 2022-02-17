@@ -28,8 +28,10 @@ def test_get_actor_lower(root):
     return test_actor_query('aca', root)
 
 def test_get_null_actor(root):
-    actors = get_actor_by_id(root, 1)
-    return actors.text
+    actors = get_actor_by_id(root, 500)
+    if len(actors) == 0:
+        return "test passed: no actors pulled as there are no actors of id 500"
+    return tools.create_fail_message("id 500 should return no actors", "[]", actors)
 
 
 
