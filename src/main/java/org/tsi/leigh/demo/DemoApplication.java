@@ -1,20 +1,14 @@
 package org.tsi.leigh.demo;
 
-import com.amazonaws.services.secretsmanager.*;
-import com.amazonaws.services.secretsmanager.model.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONObject;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
-import org.springframework.core.env.Environment;
+
 import org.springframework.web.bind.annotation.*;
 
-import javax.sql.DataSource;
+
 import java.util.ArrayList;
-import java.util.Base64;
+
 import java.util.Iterator;
 
 
