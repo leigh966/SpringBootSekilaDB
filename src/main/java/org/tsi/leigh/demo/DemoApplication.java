@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 import java.util.Iterator;
+import java.util.Set;
 
 
 @SpringBootApplication
@@ -25,13 +26,26 @@ public class DemoApplication {
 
         controller = new DbController(languageRepository, actorRepo, filmRepo, catRepo);
 
-
-
     }
 
     public static void main(String[] args)
     {
         SpringApplication.run(DemoApplication.class, args);
+    }
+
+    @PostMapping("link_actor_film")
+    public @ResponseBody
+    String linkActorToFilm(@RequestParam int actorId, @RequestParam int filmId)
+    {
+        Actor a = getActor(actorId, null).iterator().next();
+        Set<Film> actorFilms = a.getFilms();
+        Film f = getFilms(filmId, null).iterator().next();
+        Set<Actor> filmActors = f.getActor();
+        actorFilms.add(f);
+        filmActors.add(a);
+        controller.saveActor(a);
+        controller.saveFilm(f);
+        return "linkAdded";
     }
 
     @GetMapping("get_last_film_id")
@@ -146,7 +160,7 @@ public class DemoApplication {
     public @ResponseBody
     String addCategory(@RequestParam String name)
     {
-        return controller.addCategory(name);
+        return controller.saveCategory(name);
     }
 
     @DeleteMapping("delete_film")

@@ -2,7 +2,6 @@ package org.tsi.leigh.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -105,7 +104,7 @@ public class DbController
         return categoryRepository.findAll();
     }
 
-    public String addCategory(String name)
+    public String saveCategory(String name)
     {
         Category cat = new Category(name);
         categoryRepository.save(cat);
@@ -116,6 +115,11 @@ public class DbController
     public String addActor(String first_name, String last_name)
     {
         Actor a = new Actor(first_name, last_name);
+        return saveActor(a);
+    }
+
+    public String saveActor(Actor a)
+    {
         actorRepository.save(a);
         return saved;
     }
@@ -141,6 +145,12 @@ public class DbController
         Film f = new Film(title, description, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features);
         filmRepository.save(f);
         lastAddedFilmId = f.getFilm_id();
+        return saved;
+    }
+
+    public String saveFilm(Film f)
+    {
+        filmRepository.save(f);
         return saved;
     }
 

@@ -1,8 +1,11 @@
 import requests
 import tools
+def get_actor_by_id(root, id):
+    pload = {"id":id}
+    return requests.get(root+"get_actor", params=pload).json()
+
 def test_get_actor_by_id(root):
-    pload = {"id":1}
-    actors = requests.get(root+"get_actor", params=pload).json()
+    actors = get_actor_by_id(root, 1)
     if len(actors) != 1:
         return tools.create_fail_message("Getting by id should only give 1 actor", 1, len(actors))
     if actors[0]["actor_id"] != 1:
@@ -23,6 +26,10 @@ def test_get_actor_upper(root):
 
 def test_get_actor_lower(root):
     return test_actor_query('aca', root)
+
+def test_get_null_actor(root):
+    actors = get_actor_by_id(root, 1)
+    return actors.text
 
 
 

@@ -3,7 +3,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
@@ -143,7 +142,7 @@ public class addEntryCucumberTests
     @When("We add the category")
     public void addCategory()
     {
-        actual = controller.addCategory(cat.getName());
+        actual = controller.saveCategory(cat.getName());
     }
 
     @Then("The category will be added and we should return that it was saved")

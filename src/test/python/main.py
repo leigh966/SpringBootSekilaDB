@@ -40,4 +40,5 @@ print(testGet.test_get_actor_upper(root))
 
 print(testGet.test_get_actor_lower(root))
 
+print(testGet.test_get_null_actor(root))
     
