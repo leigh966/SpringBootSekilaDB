@@ -35,20 +35,20 @@ public class DemoApplication {
 
     @PostMapping("link_actor_film")
     public @ResponseBody
-    String linkActorToFilm(@RequestParam int actorId, @RequestParam int filmId)
+    String linkActorToFilm(@RequestParam int actor_id, @RequestParam int film_id)
     {
-        Iterator<Actor> actorIt = getActor(actorId, null).iterator();
+        Iterator<Actor> actorIt = getActor(actor_id, null).iterator();
         if(!actorIt.hasNext()) // No actor of this id found
         {
-            return "Actor of id " + actorId + " does not exist";
+            return "Actor of id " + actor_id + " does not exist";
         }
         Actor a = actorIt.next();
         Set<Film> actorFilms = a.getFilms();
 
-        Iterator<Film> filmIt = getFilms(filmId, null).iterator();
+        Iterator<Film> filmIt = getFilms(film_id, null).iterator();
         if(!filmIt.hasNext())
         {
-            return "Film of id " + actorId + " does not exist";
+            return "Film of id " + actor_id + " does not exist";
         }
         Film f = filmIt.next();
         Set<Actor> filmActors = f.getActor();
