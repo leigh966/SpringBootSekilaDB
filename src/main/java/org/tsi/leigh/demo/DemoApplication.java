@@ -37,15 +37,28 @@ public class DemoApplication {
     public @ResponseBody
     String linkActorToFilm(@RequestParam int actorId, @RequestParam int filmId)
     {
-        Actor a = getActor(actorId, null).iterator().next();
+        Iterator<Actor> actorIt = getActor(actorId, null).iterator();
+        if(!actorIt.hasNext()) // No actor of this id found
+        {
+            return "Actor of id " + actorId + " does not exist";
+        }
+        Actor a = actorIt.next();
         Set<Film> actorFilms = a.getFilms();
-        Film f = getFilms(filmId, null).iterator().next();
+
+        Iterator<Film> filmIt = getFilms(filmId, null).iterator();
+        if(!filmIt.hasNext())
+        {
+            return "Film of id " + actorId + " does not exist";
+        }
+        Film f = filmIt.next();
         Set<Actor> filmActors = f.getActor();
+
+        // Only existing films and actors should make it here
         actorFilms.add(f);
         filmActors.add(a);
         controller.saveActor(a);
         controller.saveFilm(f);
-        return "linkAdded";
+        return "linked";
     }
 
     @GetMapping("get_last_film_id")
