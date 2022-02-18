@@ -32,7 +32,7 @@ public class Actor implements Serializable
     public Actor(){}
 
 
-    public String setLast_name()
+    public String getLast_name()
     {
         return last_name;
     }

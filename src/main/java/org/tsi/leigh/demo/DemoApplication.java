@@ -181,7 +181,7 @@ public class DemoApplication {
             while(actorIt.hasNext())
             {
                 Actor a = actorIt.next();
-                if(a.getFirst_name().contains(actorQuery) || a.setLast_name().contains(actorQuery))
+                if(a.getFirst_name().contains(actorQuery) || a.getLast_name().contains(actorQuery))
                 {
                     returnActors.add(a);
                 }

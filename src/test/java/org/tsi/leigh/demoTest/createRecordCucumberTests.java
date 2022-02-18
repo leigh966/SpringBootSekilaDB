@@ -2,18 +2,55 @@ package org.tsi.leigh.demoTest;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.junit.jupiter.api.Assertions;
+import org.tsi.leigh.demo.Actor;
+import org.tsi.leigh.demo.Language;
 
 public class createRecordCucumberTests
 {
-    @Given("We create a language")
-    public void createLanguage()
+    // Create Language
+    String languageName;
+    @Given("We choose name {string} for language")
+    public void chooseLanguageName(String langName)
     {
-
+        languageName = langName;
     }
 
-    @Then("The created language should contain the given values plus a generated id")
+    Language l;
+    @When("We create a language")
+    public void createLanguage()
+    {
+        l = new Language(languageName);
+    }
+
+    @Then("The created language should contain the given values")
     public void checkLanguage()
     {
+        Assertions.assertEquals(languageName, l.getName(), "Returned language name differs from assigned one");
+    }
 
+    //Create Actor
+    String firstName;
+    String lastName;
+    @Given("We choose first_name {string} and last_name {string}")
+    public void chooseActorName(String firstName, String lastName)
+    {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    Actor a;
+    @When("We create an actor")
+    public void createActor()
+    {
+        a = new Actor(firstName, lastName);
+    }
+
+    @Then("The created actor should contain the given values")
+    public void checkActor()
+    {
+        Assertions.assertEquals(firstName, a.getFirst_name());
+        Assertions.assertEquals(lastName, a.getLast_name());
     }
 }
