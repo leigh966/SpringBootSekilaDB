@@ -82,7 +82,7 @@ public class addEntryCucumberTests
     @When("We add the actor")
     public void addActor()
     {
-        actual = controller.addActor(savedActor.getFirst_name(), savedActor.getLast_name());
+        actual = controller.addActor(savedActor.getFirst_name(), savedActor.setLast_name());
     }
 
     @Then("The actor should be added and we should return that it was saved")

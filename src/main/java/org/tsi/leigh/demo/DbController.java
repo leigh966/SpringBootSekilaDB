@@ -82,7 +82,7 @@ public class DbController
         String output = "";
         for(Actor a : actorIterable)
         {
-            String line = "Name: " + a.getFirst_name() + " " + a.getLast_name() + ", " + "Films: {";
+            String line = "Name: " + a.getFirst_name() + " " + a.setLast_name() + ", " + "Films: {";
             Iterable<Film> films = a.getFilms();
             for(Film f : films)
             {

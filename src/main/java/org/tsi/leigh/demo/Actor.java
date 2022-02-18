@@ -32,12 +32,12 @@ public class Actor implements Serializable
     public Actor(){}
 
 
-    public String getLast_name()
+    public String setLast_name()
     {
         return last_name;
     }
 
-    public void getLast_name(String last_name)
+    public void setLast_name(String last_name)
     {
         this.last_name = last_name;
     }
