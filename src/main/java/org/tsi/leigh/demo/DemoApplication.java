@@ -61,6 +61,33 @@ public class DemoApplication {
         return "linked";
     }
 
+    @DeleteMapping("link_actor_film")
+    public @ResponseBody
+    String unlinkActorFromFilm(@RequestParam int actor_id, @RequestParam int film_id)
+    {
+        Iterator<Actor> actorIt = getActor(actor_id, null).iterator();
+        if(!actorIt.hasNext()) // No actor of this id found
+        {
+            return "Actor of id " + actor_id + " does not exist";
+        }
+        Actor a = actorIt.next();
+        Set<Film> actorFilms = a.getFilms();
+
+        Iterator<Film> filmIt = getFilms(film_id, null).iterator();
+        if(!filmIt.hasNext())
+        {
+            return "Film of id " + actor_id + " does not exist";
+        }
+        Film f = filmIt.next();
+        Set<Actor> filmActors = f.getActor();
+
+        filmActors.remove(a);
+        actorFilms.remove(f);
+        controller.saveActor(a);
+        controller.saveFilm(f);
+        return "unlinked";
+    }
+
     @GetMapping("get_last_film_id")
     public @ResponseBody
     Integer getLastFilmId()

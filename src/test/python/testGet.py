@@ -4,6 +4,10 @@ def get_actor_by_id(root, id):
     pload = {"id":id}
     return requests.get(root+"get_actor", params=pload).json()
 
+def get_film_by_id(root, id):
+    pload = {"id":id}
+    return requests.get(root+"get_film", params=pload).json()
+
 def test_get_actor_by_id(root):
     actors = get_actor_by_id(root, 1)
     if len(actors) != 1:
@@ -34,5 +38,18 @@ def test_get_null_actor(root):
     return tools.create_fail_message("id 500 should return no actors", "[]", actors)
 
 
+def verify_link(root, actor_id, film_id):
+    film = get_film_by_id(root, film_id)[0]
+    actors = film["actor"]
+    for actor in actors:
+        if actor["actor_id"] == actor_id:
+            return "test passed: actor_id("+str(actor_id)+") and film_id("+str(film_id)+") are linked"
+    return "test failed: actor_id("+str(actor_id)+") and film_id("+str(film_id)+") are not linked"
 
-
+def verify_no_link(root, actor_id, film_id):
+    film = get_film_by_id(root, film_id)[0]
+    actors = film["actor"]
+    for actor in actors:
+        if actor["actor_id"] == actor_id:
+            return "test failed: actor_id("+str(actor_id)+") and film_id("+str(film_id)+") are linked"
+    return "test passed: actor_id("+str(actor_id)+") and film_id("+str(film_id)+") are not linked"

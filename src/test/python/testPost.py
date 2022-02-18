@@ -33,5 +33,5 @@ def link_film_actor(root,actor_id,film_id):
 def test_link_valid_film_actor(root):
   text = link_film_actor(root,2,1)
   if text != "linked":
-    return tools.create_fail_message("this link should have worked (actor_id=2, film_id=1)", "linked", text)
-  return "test passed: backend says the link has been created"
+    return tools.create_fail_message("this link should have worked (actor_id=2, film_id=1)", "return_message=linked", "return_message="+text)
+  return "test passed: backend says the link has been created" # Verify next
