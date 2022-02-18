@@ -75,23 +75,7 @@ public class DbController
     public Iterable<Actor> getAllActors() {
         return actorRepository.findAll();
     }
-
-    public String getAllActorsText()
-    {
-        Iterable<Actor> actorIterable =  actorRepository.findAll();
-        String output = "";
-        for(Actor a : actorIterable)
-        {
-            String line = "Name: " + a.getFirst_name() + " " + a.setLast_name() + ", " + "Films: {";
-            Iterable<Film> films = a.getFilms();
-            for(Film f : films)
-            {
-                line += f.getTitle() + ",";
-            }
-            output += line + "}<br><br>";
-        }
-        return output;
-    }
+    
 
     public Iterable<Film> getAllFilms()
     {
