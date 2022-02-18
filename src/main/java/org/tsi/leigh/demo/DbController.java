@@ -75,7 +75,7 @@ public class DbController
     public Iterable<Actor> getAllActors() {
         return actorRepository.findAll();
     }
-    
+
 
     public Iterable<Film> getAllFilms()
     {
