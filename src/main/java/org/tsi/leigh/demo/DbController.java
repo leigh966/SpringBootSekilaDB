@@ -123,10 +123,9 @@ public class DbController
                    float rental_rate,
                    Integer length,
                    float replacement_cost,
-                   String rating,
-                   String special_features)
+                   String rating)
     {
-        Film f = new Film(title, description, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features);
+        Film f = new Film(title, description, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating);
         filmRepository.save(f);
         lastAddedFilmId = f.getFilm_id();
         return saved;

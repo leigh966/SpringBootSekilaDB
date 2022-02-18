@@ -32,7 +32,6 @@ public class Film implements Serializable
     private Integer length;
     private float replacement_cost;
     private String rating;
-    private String special_features;
 
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
@@ -68,8 +67,7 @@ public class Film implements Serializable
                     float rental_rate,
                     Integer length,
                     float replacement_cost,
-                    String rating,
-                    String special_features
+                    String rating
            )
     {
         this.title = title;
@@ -81,7 +79,6 @@ public class Film implements Serializable
         this.length = length;
         this.replacement_cost = replacement_cost;
         this.rating = rating;
-        this.special_features = special_features;
     }
 
     public int getFilm_id()
@@ -192,16 +189,6 @@ public class Film implements Serializable
     public void setRating(String rating)
     {
         this.rating = rating;
-    }
-
-    public String getSpecial_features()
-    {
-        return special_features;
-    }
-
-    public void setSpecial_features(String special_features)
-    {
-        this.special_features = special_features;
     }
 
     public Set<Actor> getActor()

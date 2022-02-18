@@ -107,13 +107,13 @@ public class addEntryCucumberTests
     public void chooseFilm()
     {
         setup();
-        savedFilm = new Film("Example Film", "It is a film", 1, null, 10, 9.99f, 180, 23.00f, "G", null);
+        savedFilm = new Film("Example Film", "It is a film", 1, null, 10, 9.99f, 180, 23.00f, "G");
     }
 
     @When("We add the film")
     public void addFilm()
     {
-        actual = controller.addFilm(savedFilm.getTitle(), savedFilm.getDescription(), savedFilm.getLanguage_id(), savedFilm.getOriginal_language_id(), savedFilm.getRental_duration(), savedFilm.getRental_rate(), savedFilm.getLength(), savedFilm.getReplacement_cost(), savedFilm.getRating(), savedFilm.getSpecial_features());
+        actual = controller.addFilm(savedFilm.getTitle(), savedFilm.getDescription(), savedFilm.getLanguage_id(), savedFilm.getOriginal_language_id(), savedFilm.getRental_duration(), savedFilm.getRental_rate(), savedFilm.getLength(), savedFilm.getReplacement_cost(), savedFilm.getRating());
     }
 
     @Then("The film will be added and we should return that it was saved")
