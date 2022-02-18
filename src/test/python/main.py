@@ -34,7 +34,9 @@ test_results = [
     testGet.verify_link(root, 2, 1), # Verify that the link has actually occurred in the database
     # Try to unlink the actor and film that we have just linked
     testDelete.test_unlink_added_film_actor_link(root), # Request the unlink and ensure the backend says it has worked
-    testGet.verify_no_link(root, 2, 1) # Verify that the unlink has actually occurred in the database
+    testGet.verify_no_link(root, 2, 1), # Verify that the unlink has actually occurred in the database
+    # Try to get a film by the actor_id of an actor that is in it
+    testGet.test_get_films_by_actor_id(root)
 ]
 
 for tr in test_results:

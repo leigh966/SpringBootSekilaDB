@@ -1,6 +1,7 @@
 package org.tsi.leigh.demo;
 
 
+import com.amazonaws.services.secretsmanager.model.ResourceNotFoundException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -45,7 +46,7 @@ public class DemoApplication {
         Actor a = actorIt.next();
         Set<Film> actorFilms = a.getFilms();
 
-        Iterator<Film> filmIt = getFilms(film_id, null).iterator();
+        Iterator<Film> filmIt = getFilms(film_id, null, null).iterator();
         if(!filmIt.hasNext())
         {
             return "Film of id " + actor_id + " does not exist";
@@ -61,6 +62,7 @@ public class DemoApplication {
         return "linked";
     }
 
+
     @DeleteMapping("link_actor_film")
     public @ResponseBody
     String unlinkActorFromFilm(@RequestParam int actor_id, @RequestParam int film_id)
@@ -73,7 +75,7 @@ public class DemoApplication {
         Actor a = actorIt.next();
         Set<Film> actorFilms = a.getFilms();
 
-        Iterator<Film> filmIt = getFilms(film_id, null).iterator();
+        Iterator<Film> filmIt = getFilms(film_id, null, null).iterator();
         if(!filmIt.hasNext())
         {
             return "Film of id " + actor_id + " does not exist";
@@ -100,24 +102,21 @@ public class DemoApplication {
     Iterable<Film> getFilms
             (
                 @RequestParam(value = "id", required = false) Integer id,
-                @RequestParam(value = "titleQuery", required = false) String titleQuery
+                @RequestParam(value = "titleQuery", required = false) String titleQuery,
+                @RequestParam(value = "actor_id", required = false) Integer actor_id
             )
     {
         Iterable<Film> table;
+        // Get the film with the given id
         if(id != null)
         {
             table = controller.getAllFilmsById(id);
         }
-        else
-        {
-            table = controller.getAllFilms();
-        }
+        table = controller.getAllFilms();
 
-        if(titleQuery == null)
-        {
-            return table;
-        }
-        else
+
+        // Make the table only contain films that fit the title query
+        if(titleQuery != null)
         {
             titleQuery = titleQuery.toUpperCase();
             Iterator<Film> filmIt = table.iterator();
@@ -130,8 +129,28 @@ public class DemoApplication {
                     returnFilms.add(f);
                 }
             }
-            return returnFilms;
+            table = returnFilms;
         }
+
+        if(actor_id != null)
+        {
+            Iterator<Actor> actorIt = getActor(actor_id, null).iterator();
+            if(!actorIt.hasNext()) // No actor of this id found
+            {
+                throw new ResourceNotFoundException("Actor of id " + actor_id + " does not exist");
+            }
+            Actor a = actorIt.next();
+            Set<Film> actorFilms = a.getFilms();
+            ArrayList<Film> returnFilms = new ArrayList<>();
+            for(Film f : table)
+            {
+                if(actorFilms.contains(f)) {
+                    returnFilms.add(f);
+                }
+            }
+            table = returnFilms;
+        }
+        return table;
     }
 
 
