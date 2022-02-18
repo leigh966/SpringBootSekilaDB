@@ -67,8 +67,4 @@ public class Actor implements Serializable
         return actor_id;
     }
 
-    public void setActor_id(int actor_id)
-    {
-        this.actor_id = actor_id;
-    }
 }
