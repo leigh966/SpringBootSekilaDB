@@ -8,6 +8,6 @@ Feature: Edit Record
     When We add the first_name "some" last_name "guy" and the film set
     Then The actor should contain the values we gave it
   Scenario: Fill Film
-    Given We have an empty film and all necessary objects
+    Given We have an empty film and values for each field
     When We add every field to the film
     Then Every field should fit what was added
