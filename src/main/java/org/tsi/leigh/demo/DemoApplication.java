@@ -34,6 +34,8 @@ public class DemoApplication {
         SpringApplication.run(DemoApplication.class, args);
     }
 
+
+    @CrossOrigin(origins = "*")
     @PostMapping("link_actor_film")
     public @ResponseBody
     String linkActorToFilm(@RequestParam int actor_id, @RequestParam int film_id)
@@ -63,6 +65,7 @@ public class DemoApplication {
     }
 
 
+    @CrossOrigin(origins = "*")
     @DeleteMapping("link_actor_film")
     public @ResponseBody
     String unlinkActorFromFilm(@RequestParam int actor_id, @RequestParam int film_id)
@@ -90,6 +93,8 @@ public class DemoApplication {
         return "unlinked";
     }
 
+
+    @CrossOrigin(origins = "*")
     @GetMapping("get_last_film_id")
     public @ResponseBody
     Integer getLastFilmId()
@@ -97,6 +102,8 @@ public class DemoApplication {
         return controller.getLastAddedFilmId();
     }
 
+
+    @CrossOrigin(origins = "*")
     @GetMapping("get_film")
     public @ResponseBody
     Iterable<Film> getFilms
@@ -156,6 +163,7 @@ public class DemoApplication {
     }
 
 
+    @CrossOrigin(origins = "*")
     @GetMapping("get_actor")
     public @ResponseBody
     Iterable<Actor> getActor(@RequestParam(value = "id", required = false) Integer id,
@@ -193,6 +201,7 @@ public class DemoApplication {
     }
 
 
+    @CrossOrigin(origins = "*")
     @PostMapping("add_film")
     public @ResponseBody
     String addFilm(@RequestParam String title,
@@ -208,6 +217,8 @@ public class DemoApplication {
         return controller.addFilm(title.toUpperCase(), description, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating);
     }
 
+
+    @CrossOrigin(origins = "*")
     @PostMapping("add_actor")
     public @ResponseBody
     String addActor(@RequestParam String first_name,
@@ -216,6 +227,8 @@ public class DemoApplication {
         return controller.addActor(first_name, last_name);
     }
 
+
+    @CrossOrigin(origins = "*")
     @PostMapping
     public @ResponseBody
     String addCategory(@RequestParam String name)
@@ -223,6 +236,8 @@ public class DemoApplication {
         return controller.saveCategory(name);
     }
 
+
+    @CrossOrigin(origins = "*")
     @DeleteMapping("delete_film")
     public @ResponseBody
     String deleteFilm(@RequestParam int id)
