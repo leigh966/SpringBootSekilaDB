@@ -80,4 +80,11 @@ def test_get_films_by_actor_id(root):
             return "test failed: film with id("+str(film["film_id"])+") contains actor with id(2) but did not appear in get_film_by_id"
     return "test passed: getting film by actor_id behaves as expected"
 
-        
+
+def test_get_film_by_id(root):
+    films = get_film_by_id(root, 1)
+    if len(films) != 1:
+        return tools.create_fail_message("Getting by id should only give 1 film", str(1), str(len(films)))
+    if films[0]["film_id"] != 1:
+        return tools.create_fail_message("Different film_id received than expected", str(1), str(films[0]["film_id"]))
+    return "test passed: successfully pulled expected film by id"

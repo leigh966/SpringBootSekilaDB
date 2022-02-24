@@ -24,6 +24,8 @@ test_results = [
     testDelete.test_delete_film(root),
     # Get an actor by id
     testGet.test_get_actor_by_id(root),
+    # Get an film by id
+    testGet.test_get_film_by_id(root),
     # Query actor table by name
     testGet.test_get_actor_upper(root), # Upper-case
     testGet.test_get_actor_lower(root), # Lower-case

@@ -112,8 +112,10 @@ public class DemoApplication {
         {
             table = controller.getAllFilmsById(id);
         }
-        table = controller.getAllFilms();
-
+        else
+        {
+            table = controller.getAllFilms();
+        }
 
         // Make the table only contain films that fit the title query
         if(titleQuery != null)
