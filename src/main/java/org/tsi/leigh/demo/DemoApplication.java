@@ -180,11 +180,7 @@ public class DemoApplication {
             table = controller.getAllActors();
         }
 
-        if(actorQuery == null)
-        {
-            return table;
-        }
-        else
+        if(actorQuery != null)
         {
             actorQuery = actorQuery.toUpperCase();
             Iterator<Actor> actorIt = table.iterator();
