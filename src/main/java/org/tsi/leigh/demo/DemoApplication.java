@@ -40,7 +40,7 @@ public class DemoApplication {
     public @ResponseBody
     String linkActorToFilm(@RequestParam int actor_id, @RequestParam int film_id)
     {
-        Iterator<Actor> actorIt = getActor(actor_id, null).iterator();
+        Iterator<Actor> actorIt = getActor(actor_id, null,null).iterator();
         if(!actorIt.hasNext()) // No actor of this id found
         {
             return "Actor of id " + actor_id + " does not exist";
@@ -70,7 +70,7 @@ public class DemoApplication {
     public @ResponseBody
     String unlinkActorFromFilm(@RequestParam int actor_id, @RequestParam int film_id)
     {
-        Iterator<Actor> actorIt = getActor(actor_id, null).iterator();
+        Iterator<Actor> actorIt = getActor(actor_id, null,null).iterator();
         if(!actorIt.hasNext()) // No actor of this id found
         {
             return "Actor of id " + actor_id + " does not exist";
@@ -143,7 +143,7 @@ public class DemoApplication {
 
         if(actor_id != null)
         {
-            Iterator<Actor> actorIt = getActor(actor_id, null).iterator();
+            Iterator<Actor> actorIt = getActor(actor_id, null, null).iterator();
             if(!actorIt.hasNext()) // No actor of this id found
             {
                 throw new ResourceNotFoundException("Actor of id " + actor_id + " does not exist");
@@ -167,7 +167,8 @@ public class DemoApplication {
     @GetMapping("get_actor")
     public @ResponseBody
     Iterable<Actor> getActor(@RequestParam(value = "id", required = false) Integer id,
-                            @RequestParam(value = "nameQuery", required = false) String actorQuery)
+                            @RequestParam(value = "nameQuery", required = false) String actorQuery,
+                             @RequestParam(value = "film_id", required = false) Integer film_id)
     {
         Iterable<Actor> table;
         if(id != null)
@@ -196,8 +197,27 @@ public class DemoApplication {
                     returnActors.add(a);
                 }
             }
-            return returnActors;
         }
+        if(film_id != null)
+        {
+            Iterator<Film> filmIt = getFilms(film_id, null, null).iterator();
+            if(!filmIt.hasNext()) // No film of this id found
+            {
+                throw new ResourceNotFoundException("Film of id " + film_id + " does not exist");
+            }
+            Film f = filmIt.next();
+            Set<Actor> actorFilms = f.getActor();
+            ArrayList<Actor> returnActors = new ArrayList<>();
+            for(Actor a : table)
+            {
+                if(actorFilms.contains(a))
+                {
+                    returnActors.add(a);
+                }
+            }
+            table = returnActors;
+        }
+        return table;
     }
 
 
