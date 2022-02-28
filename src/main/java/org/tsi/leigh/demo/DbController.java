@@ -26,6 +26,13 @@ public class DbController
     private final String saved = "saved";
     private final String deleted = "deleted";
 
+    public Iterable<Language> getAllLanguagesById(int id)
+    {
+        ArrayList<Integer> ids = new ArrayList<>();
+        ids.add(id);
+        return languageRepository.findAllById(ids);
+    }
+
     public DbController(LanguageRepository languageRepository, ActorRepository actorRepo, FilmRepository filmRepo, CategoryRepository catRepo)
     {
         this.languageRepository = languageRepository;

@@ -35,6 +35,77 @@ public class DemoApplication {
     }
 
 
+    void checkLanguageExist(Integer language_id)
+    {
+        Iterable<Language> langIt = controller.getAllLanguagesById(language_id);
+        if(!langIt.iterator().hasNext())
+        {
+            throw new ResourceNotFoundException("Language with id " + language_id + " not found");
+        }
+    }
+
+
+    @CrossOrigin(origins = "*")
+    @PutMapping("update_film")
+    public @ResponseBody
+    String updateFilm(@RequestParam int id,
+                      @RequestParam(value = "title", required = false) String title,
+                      @RequestParam(value = "description", required = false) String description,
+                      @RequestParam(value = "language_id", required = false) Integer language_id,
+                      @RequestParam(value = "original_language_id", required = false) Integer original_language_id,
+                      @RequestParam(value = "rental_duration", required = false) Integer rental_duration,
+                      @RequestParam(value = "rental_rate", required = false) Float rental_rate,
+                      @RequestParam(value = "length", required = false) Integer length,
+                      @RequestParam(value = "replacement_cost", required = false) Float replacement_cost,
+                      @RequestParam(value = "rating", required = false) String rating)
+    {
+        Iterable<Film> filmIt = controller.getAllFilmsById(id);
+        if(filmIt == null)
+        {
+            throw new ResourceNotFoundException("Film with id " + id + " not found");
+        }
+        Film f = filmIt.iterator().next();
+        if(title!=null)
+        {
+            f.setTitle(title);
+        }
+        if(description!=null)
+        {
+            f.setDescription(description);
+        }
+        if(language_id!=null)
+        {
+            checkLanguageExist(language_id);
+            f.setLanguage_id(language_id);
+        }
+        if(original_language_id!=null)
+        {
+            checkLanguageExist(original_language_id);
+            f.setOriginal_language_id(original_language_id);
+        }
+        if(rental_duration!=null)
+        {
+            f.setRental_duration(rental_duration);
+        }
+        if(rental_rate!=null)
+        {
+            f.setRental_rate(rental_rate);
+        }
+        if(length!=null)
+        {
+            f.setLength(length);
+        }
+        if(replacement_cost!=null)
+        {
+            f.setReplacement_cost(replacement_cost);
+        }
+        if(rating != null)
+        {
+            f.setRating(rating);
+        }
+        return controller.saveFilm(f);
+    }
+
 
     @CrossOrigin(origins = "*")
     @PutMapping("update_actor")
