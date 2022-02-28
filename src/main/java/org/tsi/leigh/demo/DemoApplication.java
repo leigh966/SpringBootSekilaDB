@@ -35,6 +35,29 @@ public class DemoApplication {
     }
 
 
+
+    @CrossOrigin(origins = "*")
+    @PutMapping("update_actor")
+    public @ResponseBody
+    String updateActor(@RequestParam int id, @RequestParam(value = "first_name", required = false) String first_name,  @RequestParam(value = "last_name", required = false) String last_name)
+    {
+        Iterable<Actor> actorIt = controller.getAllActorsById(id);
+        if(actorIt == null)
+        {
+            throw new ResourceNotFoundException("Actor with id " + id + " not found");
+        }
+        Actor a = actorIt.iterator().next();
+        if(first_name != null)
+        {
+            a.setFirst_name(first_name.toUpperCase());
+        }
+        if(last_name != null)
+        {
+            a.setLast_name(last_name.toUpperCase());
+        }
+        return controller.saveActor(a);
+    }
+
     @CrossOrigin(origins = "*")
     @PostMapping("link_actor_film")
     public @ResponseBody
@@ -193,6 +216,7 @@ public class DemoApplication {
                     returnActors.add(a);
                 }
             }
+            table = returnActors;
         }
         if(film_id != null)
         {

@@ -3,6 +3,7 @@ import testGet
 import testPost
 import testDelete
 import testState
+import testPut
 import sys
 root = "http://localhost:8080/home/"
 
@@ -14,6 +15,8 @@ if len(sys.argv) > 1:
 print("Root: " + root)
 
 test_results = [
+    # Update an actor
+    testPut.test_put_actor_name(root),
     # Add a film with minimum required params
     testPost.add_film_min(root),
     # Ensure all film titles are caps
