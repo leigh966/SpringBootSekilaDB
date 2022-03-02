@@ -287,7 +287,8 @@ public class DemoApplication {
             while(actorIt.hasNext())
             {
                 Actor a = actorIt.next();
-                if(a.getFirst_name().contains(actorQuery) || a.getLast_name().contains(actorQuery))
+                String name = a.getFirst_name()+" "+a.getLast_name();
+                if(name.contains(actorQuery) || name == actorQuery)
                 {
                     returnActors.add(a);
                 }
