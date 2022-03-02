@@ -232,7 +232,7 @@ public class DemoApplication {
             while(filmIt.hasNext())
             {
                 Film f = filmIt.next();
-                if(f.getTitle().contains(titleQuery))
+                if(f.getTitle().contains(titleQuery) || f.getTitle() == titleQuery)
                 {
                     returnFilms.add(f);
                 }
