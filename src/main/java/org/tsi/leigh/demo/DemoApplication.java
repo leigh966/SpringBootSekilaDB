@@ -323,8 +323,13 @@ public class DemoApplication {
                    @RequestParam float rental_rate,
                    @RequestParam(value = "length", required = false) Integer length,
                    @RequestParam float replacement_cost,
-                   @RequestParam String rating)
+                   @RequestParam String rating,
+    @RequestParam(value="release_year", required=false)Integer release_year)
     {
+        if(release_year != null)
+        {
+            return controller.addFilm(title.toUpperCase(), description, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating, release_year);
+        }
         return controller.addFilm(title.toUpperCase(), description, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating);
     }
 

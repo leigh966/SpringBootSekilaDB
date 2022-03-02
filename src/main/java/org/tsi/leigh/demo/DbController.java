@@ -58,6 +58,7 @@ public class DbController
         return deleted;
     }
 
+
     public Iterable<Film> getAllFilmsById(Integer id)
     {
         ArrayList<Integer> idList = new ArrayList<>();
@@ -133,6 +134,24 @@ public class DbController
                    String rating)
     {
         Film f = new Film(title, description, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating);
+        filmRepository.save(f);
+        lastAddedFilmId = f.getFilm_id();
+        return saved;
+    }
+
+    public String addFilm(String title,
+                          String description,
+                          int language_id,
+                          Integer original_language_id,
+                          int rental_duration,
+                          float rental_rate,
+                          Integer length,
+                          float replacement_cost,
+                          String rating,
+                          Integer release_year)
+    {
+        Film f = new Film(title, description, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating);
+        f.setRelease_year(release_year);
         filmRepository.save(f);
         lastAddedFilmId = f.getFilm_id();
         return saved;
