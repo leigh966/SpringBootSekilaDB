@@ -57,7 +57,8 @@ public class DemoApplication {
                       @RequestParam(value = "rental_rate", required = false) Float rental_rate,
                       @RequestParam(value = "length", required = false) Integer length,
                       @RequestParam(value = "replacement_cost", required = false) Float replacement_cost,
-                      @RequestParam(value = "rating", required = false) String rating)
+                      @RequestParam(value = "rating", required = false) String rating,
+    @RequestParam(value = "release_year", required = false) Integer release_year)
     {
         Iterable<Film> filmIt = controller.getAllFilmsById(id);
         if(filmIt == null)
@@ -102,6 +103,10 @@ public class DemoApplication {
         if(rating != null)
         {
             f.setRating(rating);
+        }
+        if(release_year!=null)
+        {
+            f.setRelease_year(release_year);
         }
         return controller.saveFilm(f);
     }
