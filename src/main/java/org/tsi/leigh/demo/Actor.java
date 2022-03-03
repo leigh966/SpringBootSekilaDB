@@ -25,9 +25,10 @@ public class Actor implements Serializable
     private Set<Film> films = new HashSet<>();
 
     public Actor(String first_name, String last_name)
+            throws NotSavedException
     {
-        this.first_name = first_name;
-        this.last_name = last_name;
+        setFirst_name(first_name);
+        setLast_name(last_name);
     }
 
     public Actor(){}
@@ -56,9 +57,10 @@ public class Actor implements Serializable
     }
 final int MAX_FIRST_NAME_LENGTH = 20;
     public void setFirst_name(String first_name)
+            throws NotSavedException
     {
-        if(first_name.length() < 1) throw new RuntimeException("Cannot set first name to nothing");
-        if(first_name.length() > MAX_FIRST_NAME_LENGTH) throw new RuntimeException("First name too long");
+        if(first_name.length() < 1) throw new NotSavedException("Cannot set first name to nothing");
+        if(first_name.length() > MAX_FIRST_NAME_LENGTH) throw new NotSavedException("First name too long");
         else {
             this.first_name = first_name.toUpperCase();
         }

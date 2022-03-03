@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 import org.tsi.leigh.demo.Actor;
 import org.tsi.leigh.demo.Language;
+import org.tsi.leigh.demo.NotSavedException;
 
 public class createRecordCucumberTests
 {
@@ -44,7 +45,12 @@ public class createRecordCucumberTests
     @When("We create an actor")
     public void createActor()
     {
-        a = new Actor(firstName, lastName);
+        try
+        {a = new Actor(firstName, lastName);}catch (NotSavedException nse)
+        {
+            Assertions.fail("Save should be successful");
+        }
+
     }
 
     @Then("The created actor should contain the given values")

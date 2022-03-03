@@ -90,7 +90,13 @@ public class DbController
 
     public String addActor(String first_name, String last_name)
     {
-        Actor a = new Actor(first_name, last_name);
+        Actor a;
+        try {
+            a = new Actor(first_name, last_name);
+        }catch (NotSavedException nse)
+        {
+            return nse.getMessage();
+        }
         return saveActor(a);
     }
 

@@ -138,7 +138,12 @@ public class DemoApplication {
         Actor a = actorIt.iterator().next();
         if(first_name != null)
         {
-            a.setFirst_name(first_name.toUpperCase());
+            try {
+                a.setFirst_name(first_name.toUpperCase());
+            }catch (NotSavedException nse)
+            {
+                return nse.getMessage();
+            }
         }
         if(last_name != null)
         {

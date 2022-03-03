@@ -12,7 +12,12 @@ public class ActorTest
     public void testSetFirstNameLower()
     {
         Actor a = new Actor();
-        a.setFirst_name("blah");
+        try {
+            a.setFirst_name("blah");
+        }catch (NotSavedException nse)
+        {
+            Assertions.fail("Save should be successful");
+        }
         Assertions.assertEquals("BLAH", a.getFirst_name(), "First name has not been set to the uppercase of what was provided");
     }
 
@@ -43,7 +48,15 @@ public class ActorTest
 
         String testString = TestTools.buildString(FIRST_NAME_LENGTH_LIMIT);
 
-        a.setFirst_name(testString);
+        try
+        {
+            a.setFirst_name(testString);
+        }
+        catch(NotSavedException nse)
+        {
+            Assertions.fail("Save should be successful");
+        }
+
 
         Assertions.assertEquals(testString, a.getFirst_name(), "First name should update as first_name is within the length limit");
 

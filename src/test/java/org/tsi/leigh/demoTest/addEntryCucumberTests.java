@@ -2,6 +2,7 @@ package org.tsi.leigh.demoTest;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.aspectj.weaver.ast.Not;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -73,7 +74,12 @@ public class addEntryCucumberTests
     public void chooseActor()
     {
         setup();
-        savedActor = new Actor("Example", "Guy");
+        try {
+            savedActor = new Actor("Example", "Guy");
+        }catch (NotSavedException nse)
+        {
+            Assertions.fail("Save should be successful");
+        }
     }
 
     @When("We add the actor")
