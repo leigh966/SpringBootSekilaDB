@@ -37,19 +37,29 @@ public class Actor implements Serializable
         return last_name;
     }
 
+    final int MAX_LAST_NAME_LENGTH = 30;
+
     public void setLast_name(String last_name)
     {
-        this.last_name = last_name;
+        if(last_name.length() < 1) throw new RuntimeException("Cannot set last name to nothing");
+        if(last_name.length() > MAX_LAST_NAME_LENGTH) throw new RuntimeException("Last name too long");
+        else {
+            this.last_name = last_name.toUpperCase();
+        }
     }
 
     public String getFirst_name()
     {
         return first_name;
     }
-
+final int MAX_FIRST_NAME_LENGTH = 20;
     public void setFirst_name(String first_name)
     {
-        this.first_name = first_name;
+        if(first_name.length() < 1) throw new RuntimeException("Cannot set first name to nothing");
+        if(first_name.length() > MAX_FIRST_NAME_LENGTH) throw new RuntimeException("First name too long");
+        else {
+            this.first_name = first_name.toUpperCase();
+        }
     }
 
     public Set<Film> getFilms()
