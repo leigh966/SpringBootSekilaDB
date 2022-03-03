@@ -93,6 +93,13 @@ public class postRequestCucumberTest {
     }
 
 
+    final int MAX_LAST_NAME_LENGTH = 30;
+    @Given("last_name too long")
+    public void last_name_too_long() {
+        last_name = TestTools.buildString(MAX_LAST_NAME_LENGTH+1);
+    }
+
+
     @When("We send a post request for an actor")
     public void we_send_a_post_request_for_an_actor() {
         actual = app.addActor(first_name, last_name);

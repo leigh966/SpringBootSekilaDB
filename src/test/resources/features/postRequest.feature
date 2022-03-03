@@ -17,3 +17,8 @@ Feature: Post Request
       And first_name too long
       When We send a post request for an actor
       Then The server should return "Not Saved: first_name too long"
+  Scenario: Have actor be rejected for last name being too long
+    Given We have all the fields for an actor
+    And last_name too long
+    When We send a post request for an actor
+    Then The server should return "Not Saved: last_name too long"
