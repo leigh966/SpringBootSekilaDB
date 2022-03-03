@@ -28,8 +28,6 @@ public class queryEntryCucumberTests
     @Mock
     private ActorRepository actorRepository;
 
-    @Mock
-    private CategoryRepository categoryRepo;
 
     String actual;
     void setup()
@@ -37,8 +35,7 @@ public class queryEntryCucumberTests
         languageRepo = mock(LanguageRepository.class);
         actorRepository = mock(ActorRepository.class);
         filmRepository = mock(FilmRepository.class);
-        categoryRepo = mock(CategoryRepository.class);
-        controller = new DbController(languageRepo, actorRepository, filmRepository, categoryRepo);
+        controller = new DbController(languageRepo, actorRepository, filmRepository);
     }
 
 

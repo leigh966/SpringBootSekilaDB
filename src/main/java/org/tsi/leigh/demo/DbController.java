@@ -17,8 +17,6 @@ public class DbController
     @Autowired
     private FilmRepository filmRepository;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
 
 
     private Integer lastAddedFilmId;
@@ -33,12 +31,11 @@ public class DbController
         return languageRepository.findAllById(ids);
     }
 
-    public DbController(LanguageRepository languageRepository, ActorRepository actorRepo, FilmRepository filmRepo, CategoryRepository catRepo)
+    public DbController(LanguageRepository languageRepository, ActorRepository actorRepo, FilmRepository filmRepo)
     {
         this.languageRepository = languageRepository;
         this.actorRepository = actorRepo;
         this.filmRepository = filmRepo;
-        this.categoryRepository = catRepo;
     }
 
     public static void main(String[] args) {
@@ -88,19 +85,6 @@ public class DbController
     public Iterable<Film> getAllFilms()
     {
         return filmRepository.findAll();
-    }
-
-
-    public Iterable<Category> getAllCategories()
-    {
-        return categoryRepository.findAll();
-    }
-
-    public String saveCategory(String name)
-    {
-        Category cat = new Category(name);
-        categoryRepository.save(cat);
-        return saved;
     }
 
 

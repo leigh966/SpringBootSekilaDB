@@ -22,10 +22,10 @@ public class DemoApplication {
     public DbController controller;
 
 
-    public DemoApplication(LanguageRepository languageRepository, ActorRepository actorRepo, FilmRepository filmRepo, CategoryRepository catRepo)
+    public DemoApplication(LanguageRepository languageRepository, ActorRepository actorRepo, FilmRepository filmRepo)
     {
 
-        controller = new DbController(languageRepository, actorRepo, filmRepo, catRepo);
+        controller = new DbController(languageRepository, actorRepo, filmRepo);
 
     }
 
@@ -140,64 +140,6 @@ public class DemoApplication {
             a.setLast_name(last_name.toUpperCase());
         }
         return controller.saveActor(a);
-    }
-
-    @CrossOrigin(origins = "*")
-    @PostMapping("link_actor_film")
-    public @ResponseBody
-    String linkActorToFilm(@RequestParam int actor_id, @RequestParam int film_id)
-    {
-        Iterator<Actor> actorIt = getActor(actor_id, null,null).iterator();
-        if(!actorIt.hasNext()) // No actor of this id found
-        {
-            return "Actor of id " + actor_id + " does not exist";
-        }
-        Actor a = actorIt.next();
-        Set<Film> actorFilms = a.getFilms();
-
-        Iterator<Film> filmIt = getFilms(film_id, null, null).iterator();
-        if(!filmIt.hasNext())
-        {
-            return "Film of id " + actor_id + " does not exist";
-        }
-        Film f = filmIt.next();
-        Set<Actor> filmActors = f.getActor();
-
-        // Only existing films and actors should make it here
-        actorFilms.add(f);
-        filmActors.add(a);
-        controller.saveActor(a);
-        controller.saveFilm(f);
-        return "linked";
-    }
-
-
-    @CrossOrigin(origins = "*")
-    @DeleteMapping("link_actor_film")
-    public @ResponseBody
-    String unlinkActorFromFilm(@RequestParam int actor_id, @RequestParam int film_id)
-    {
-        Iterator<Actor> actorIt = getActor(actor_id, null,null).iterator();
-        if(!actorIt.hasNext()) // No actor of this id found
-        {
-            return "Actor of id " + actor_id + " does not exist";
-        }
-        Actor a = actorIt.next();
-        Set<Film> actorFilms = a.getFilms();
-
-        Iterator<Film> filmIt = getFilms(film_id, null, null).iterator();
-        if(!filmIt.hasNext())
-        {
-            return "Film of id " + actor_id + " does not exist";
-        }
-        Film f = filmIt.next();
-        Set<Actor> filmActors = f.getActor();
-
-        filmActors.remove(a);
-        actorFilms.remove(f);
-        controller.saveActor(a);
-        controller.saveFilm(f);
-        return "unlinked";
     }
 
 
@@ -355,15 +297,6 @@ public class DemoApplication {
                     @RequestParam String last_name)
     {
         return controller.addActor(first_name, last_name);
-    }
-
-
-    @CrossOrigin(origins = "*")
-    @PostMapping
-    public @ResponseBody
-    String addCategory(@RequestParam String name)
-    {
-        return controller.saveCategory(name);
     }
 
 

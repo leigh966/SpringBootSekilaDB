@@ -26,8 +26,6 @@ public class addEntryCucumberTests
     @Mock
     private ActorRepository actorRepository;
 
-    @Mock
-    private CategoryRepository categoryRepo;
 
     String actual;
     void setup()
@@ -35,8 +33,7 @@ public class addEntryCucumberTests
         languageRepo = mock(LanguageRepository.class);
         actorRepository = mock(ActorRepository.class);
         filmRepository = mock(FilmRepository.class);
-        categoryRepo = mock(CategoryRepository.class);
-        controller = new DbController(languageRepo, actorRepository, filmRepository, categoryRepo);
+        controller = new DbController(languageRepo, actorRepository, filmRepository);
     }
 
 
@@ -129,32 +126,5 @@ public class addEntryCucumberTests
         filmArgumentCaptor.getValue();
     }
 
-    // Add Category
-    Category cat;
 
-    @Given("We have a category to add")
-    public void chooseCategory()
-    {
-        setup();
-        cat = new Category("Just weird");
-    }
-
-    @When("We add the category")
-    public void addCategory()
-    {
-        actual = controller.saveCategory(cat.getName());
-    }
-
-    @Then("The category will be added and we should return that it was saved")
-    public void checkCategory()
-    {
-        // Check that the function has told us the new Category has been saved
-        String expected = "saved";
-        Assertions.assertEquals(expected, actual, "Save failed");
-
-        // Verify that the save call occured
-        ArgumentCaptor<Category> categoryArgumentCaptor = ArgumentCaptor.forClass(Category.class);
-        verify(categoryRepo).save(categoryArgumentCaptor.capture());
-        categoryArgumentCaptor.getValue();
-    }
 }
