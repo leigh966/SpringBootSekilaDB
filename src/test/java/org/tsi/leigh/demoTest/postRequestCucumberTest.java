@@ -76,4 +76,18 @@ public class postRequestCucumberTest {
         Assertions.assertEquals(expected, actual, "Unexpected return");
     }
 
+    String first_name, last_name;
+
+    @Given("We have all the fields for an actor")
+    public void we_have_all_the_fields_for_an_actor() {
+        first_name = "blah";
+        last_name = "blah";
+        setup();
+    }
+    @When("We send a post request for an actor")
+    public void we_send_a_post_request_for_an_actor() {
+        actual = app.addActor(first_name, last_name);
+    }
+
+
 }
