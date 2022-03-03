@@ -56,7 +56,7 @@ public class createRecordCucumberTests
     @Then("The created actor should contain the given values")
     public void checkActor()
     {
-        Assertions.assertEquals(firstName, a.getFirst_name());
-        Assertions.assertEquals(lastName, a.getLast_name());
+        Assertions.assertEquals(firstName.toUpperCase(), a.getFirst_name());
+        Assertions.assertEquals(lastName.toUpperCase(), a.getLast_name());
     }
 }
