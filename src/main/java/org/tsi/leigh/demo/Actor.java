@@ -44,8 +44,8 @@ public class Actor implements Serializable
     public void setLast_name(String last_name)
             throws NotSavedException
     {
-        if(last_name.length() < 1) throw new NotSavedException("Cannot set last name to nothing");
-        if(last_name.length() > MAX_LAST_NAME_LENGTH) throw new NotSavedException("Last name too long");
+        if(last_name.length() < 1) throw new NotSavedException("cannot set last name to nothing");
+        if(last_name.length() > MAX_LAST_NAME_LENGTH) throw new NotSavedException("last_name too long");
         else {
             this.last_name = last_name.toUpperCase();
         }
@@ -60,7 +60,7 @@ final int MAX_FIRST_NAME_LENGTH = 20;
             throws NotSavedException
     {
         if(first_name.length() < 1) throw new NotSavedException("Cannot set first name to nothing");
-        if(first_name.length() > MAX_FIRST_NAME_LENGTH) throw new NotSavedException("First name too long");
+        if(first_name.length() > MAX_FIRST_NAME_LENGTH) throw new NotSavedException("first_name too long");
         else {
             this.first_name = first_name.toUpperCase();
         }

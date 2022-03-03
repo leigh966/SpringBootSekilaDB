@@ -3,6 +3,7 @@ package org.tsi.leigh.demoTest;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.mockito.Mock;
 import org.tsi.leigh.demo.*;
@@ -84,6 +85,14 @@ public class postRequestCucumberTest {
         last_name = "blah";
         setup();
     }
+
+    final int MAX_FIRST_NAME_LENGTH = 20;
+    @Given("first_name too long")
+    public void first_name_too_long() {
+        first_name = TestTools.buildString(MAX_FIRST_NAME_LENGTH+1);
+    }
+
+
     @When("We send a post request for an actor")
     public void we_send_a_post_request_for_an_actor() {
         actual = app.addActor(first_name, last_name);

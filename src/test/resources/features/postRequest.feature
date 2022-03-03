@@ -16,4 +16,4 @@ Feature: Post Request
       Given We have all the fields for an actor
       And first_name too long
       When We send a post request for an actor
-      Then The server should return "Not Saved: first_name Too Long"
+      Then The server should return "Not Saved: first_name too long"
