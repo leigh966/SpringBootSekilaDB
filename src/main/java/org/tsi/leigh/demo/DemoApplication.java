@@ -201,7 +201,7 @@ public class DemoApplication {
             while(filmIt.hasNext())
             {
                 Film f = filmIt.next();
-                if(f.getTitle().contains(titleQuery) || f.getTitle() == titleQuery)
+                if(f.getTitle().contains(titleQuery) || f.getTitle().equals(titleQuery))
                 {
                     returnFilms.add(f);
                 }
@@ -257,7 +257,7 @@ public class DemoApplication {
             {
                 Actor a = actorIt.next();
                 String name = a.getFirst_name()+" "+a.getLast_name();
-                if(name.contains(actorQuery) || name == actorQuery)
+                if(name.contains(actorQuery) || name.equals(actorQuery))
                 {
                     returnActors.add(a);
                 }
