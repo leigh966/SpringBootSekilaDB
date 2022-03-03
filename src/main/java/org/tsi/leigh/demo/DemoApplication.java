@@ -372,6 +372,11 @@ public class DemoApplication {
     public @ResponseBody
     String deleteFilm(@RequestParam int id)
     {
+        if(getActor(null, null, id).iterator().hasNext())
+        {
+            // If there are actors associated with this film
+            return "Fail: actors linked to this film";
+        }
         return controller.deleteFilm(id);
     }
 
@@ -381,6 +386,11 @@ public class DemoApplication {
     public @ResponseBody
     String deleteActor(@RequestParam int id)
     {
+        if(getFilms(null, null, id).iterator().hasNext())
+        {
+            // If there are films associated with this actor
+            return  "Fail: films linked to this actor";
+        }
         return controller.deleteActor(id);
     }
 
