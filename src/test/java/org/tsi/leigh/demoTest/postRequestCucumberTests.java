@@ -3,17 +3,13 @@ package org.tsi.leigh.demoTest;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.mockito.Mock;
 import org.tsi.leigh.demo.*;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 import static org.mockito.Mockito.mock;
 
-public class postRequestCucumberTest {
+public class postRequestCucumberTests {
     private String title;
     private String description;
     private int release_year;
