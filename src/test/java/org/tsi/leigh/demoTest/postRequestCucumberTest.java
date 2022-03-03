@@ -51,8 +51,8 @@ public class postRequestCucumberTest {
     @Given("We have all the fields required for a film")
     public void we_have_all_the_fields_required_for_a_film() {
         setup();
-        title = "";
-        description = "";
+        title = "hhhh";
+        description = "hhhhh";
         release_year = 2000;
         language_id = 1;
         original_language_id = null;
@@ -65,14 +65,14 @@ public class postRequestCucumberTest {
     final int MAX_TITLE_LENGTH = 60;
     @Given("The title is too long")
     public void the_title_is_too_long() {
-        title = TestTools.buildString(MAX_TITLE_LENGTH);
+        title = TestTools.buildString(MAX_TITLE_LENGTH+1);
     }
     @When("We send a post request for a film")
     public void we_send_a_post_request_for_a_film() {
         actual = app.addFilm(title,description,language_id,original_language_id,rental_duration,rental_rate,length,replacement_cost,rating,release_year);
     }
     @Then("The server should return {string}")
-    public void the_server_should_not_return_not_saved_too_long(String expected) {
+    public void the_server_should_return(String expected) {
         Assertions.assertEquals(expected, actual, "Unexpected return");
     }
 

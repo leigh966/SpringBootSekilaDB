@@ -76,7 +76,12 @@ public class DemoApplication {
         Film f = filmIt.iterator().next();
         if(title!=null)
         {
-            f.setTitle(title);
+            try {
+                f.setTitle(title);
+            }catch(NotSavedException nse)
+            {
+                return nse.getMessage();
+            }
         }
         if(description!=null)
         {

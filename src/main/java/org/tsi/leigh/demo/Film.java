@@ -1,5 +1,7 @@
 package org.tsi.leigh.demo;
 
+import org.aspectj.weaver.ast.Not;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -59,9 +61,9 @@ public class Film implements Serializable
                     Integer length,
                     float replacement_cost,
                     String rating
-           )
+           )throws NotSavedException
     {
-        this.title = title;
+        setTitle(title);
         this.description = description;
         this.language_id = language_id;
         this.original_language_id = original_language_id;
@@ -89,10 +91,12 @@ public class Film implements Serializable
 
     final int MAX_TITLE_LENGTH = 60;
     public void setTitle(String title)
+            throws NotSavedException
     {
-        if(title.length() > 60) throw new RuntimeException("Title too long");
-        if(title.length() < 1) throw new RuntimeException("Title cannot be blank");
+        if(title.length() > 60) throw new NotSavedException("Too long");
+        if(title.length() < 1) throw new NotSavedException("Title cannot be blank");
         this.title = title.toUpperCase();
+
     }
 
     public String getDescription()

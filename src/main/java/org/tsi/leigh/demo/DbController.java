@@ -117,7 +117,13 @@ public class DbController
                    float replacement_cost,
                    String rating)
     {
-        Film f = new Film(title, description, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating);
+        Film f;
+        try {
+            f = new Film(title, description, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating);
+        }catch(NotSavedException nse)
+        {
+            return nse.getMessage();
+        }
         filmRepository.save(f);
         lastAddedFilmId = f.getFilm_id();
         return saved;
@@ -134,7 +140,13 @@ public class DbController
                           String rating,
                           Integer release_year)
     {
-        Film f = new Film(title, description, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating);
+        Film f;
+        try {
+            f = new Film(title, description, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating);
+        }catch(NotSavedException nse)
+        {
+            return nse.getMessage();
+        }
         f.setRelease_year(release_year);
         filmRepository.save(f);
         lastAddedFilmId = f.getFilm_id();

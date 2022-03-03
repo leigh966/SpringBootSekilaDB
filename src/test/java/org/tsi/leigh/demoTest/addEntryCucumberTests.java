@@ -101,11 +101,15 @@ public class addEntryCucumberTests
     Film savedFilm;
 
     @Given("We have a film to add")
-    public void chooseFilm()
-    {
+    public void chooseFilm() {
         setup();
-        savedFilm = new Film("Example Film", "It is a film", 1, null, 10, 9.99f, 180, 23.00f, "G");
+        try {
+            savedFilm = new Film("Example Film", "It is a film", 1, null, 10, 9.99f, 180, 23.00f, "G");
+        } catch (NotSavedException nse) {
+            Assertions.fail("Film should not throw NotSavedException");
+        }
     }
+
 
     @When("We add the film")
     public void addFilm()

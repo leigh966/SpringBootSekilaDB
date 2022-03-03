@@ -3,6 +3,7 @@ package org.tsi.leigh.demoTest;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.tsi.leigh.demo.Film;
+import org.tsi.leigh.demo.NotSavedException;
 
 public class FilmTest
 {
@@ -11,7 +12,12 @@ public class FilmTest
     public void testSetTitleLowerCase()
     {
         Film f = new Film();
-        f.setTitle("blah");
+        try {
+                f.setTitle("blah");
+    }catch (NotSavedException nse)
+    {
+        Assertions.fail("Title should save successfully");
+    }
         Assertions.assertEquals("BLAH", f.getTitle(), "Title should be added as uppercase");
     }
 
@@ -35,7 +41,12 @@ public class FilmTest
     {
         Film f = new Film();
         String testString = TestTools.buildString(MAX_TITLE_LENGTH);
-        f.setTitle(testString);
+        try {
+            f.setTitle(testString);
+        }catch (NotSavedException nse)
+        {
+            Assertions.fail("Title should save successfully");
+        }
         Assertions.assertEquals(testString, f.getTitle(), "Title of max length (but not over) should be accepted");
     }
 
