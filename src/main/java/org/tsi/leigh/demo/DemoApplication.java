@@ -44,6 +44,14 @@ public class DemoApplication {
         }
     }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping("get_languages")
+    public @ResponseBody
+    Iterable<Language> getLanguages()
+    {
+        return controller.getAllLanguages();
+    }
+
 
     @CrossOrigin(origins = "*")
     @PutMapping("update_film")
@@ -366,5 +374,16 @@ public class DemoApplication {
     {
         return controller.deleteFilm(id);
     }
+
+
+    @CrossOrigin(origins = "*")
+    @DeleteMapping("delete_actor")
+    public @ResponseBody
+    String deleteActor(@RequestParam int id)
+    {
+        return controller.deleteActor(id);
+    }
+
+
 
 }
