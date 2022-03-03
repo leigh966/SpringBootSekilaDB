@@ -1,3 +1,6 @@
+# Table Of Contents
+
+- [Table Of Contents](#table-of-contents)
 - [Getting Started](#getting-started)
   - [Requirements](#requirements)
     - [<b>Java Runtime Environment</b>](#bjava-runtime-environmentb)
