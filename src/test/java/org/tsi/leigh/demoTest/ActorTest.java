@@ -23,15 +23,7 @@ public class ActorTest
     }
 
 
-    public String buildString(int length)
-    {
-        String testString = "";
-        for(int i = 0;i < length;i++)
-        {
-            testString+="A";
-        }
-        return testString;
-    }
+
 
     final int FIRST_NAME_LENGTH_LIMIT = 20;
     @Test
@@ -39,7 +31,7 @@ public class ActorTest
     {
         Actor a = new Actor();
 
-        String testString = buildString(FIRST_NAME_LENGTH_LIMIT+1);
+        String testString = TestTools.buildString(FIRST_NAME_LENGTH_LIMIT+1);
 
         Assertions.assertThrows(Exception.class, ()->{a.setFirst_name(testString);}, "First name should be rejected as it is too long");
     }
@@ -48,7 +40,7 @@ public class ActorTest
     {
         Actor a = new Actor();
 
-        String testString = buildString(FIRST_NAME_LENGTH_LIMIT);
+        String testString = TestTools.buildString(FIRST_NAME_LENGTH_LIMIT);
 
         a.setFirst_name(testString);
 
@@ -79,7 +71,7 @@ public class ActorTest
     {
         Actor a = new Actor();
 
-        String testString = buildString(LAST_NAME_LENGTH_LIMIT+1);
+        String testString = TestTools.buildString(LAST_NAME_LENGTH_LIMIT+1);
 
         Assertions.assertThrows(Exception.class, ()->{a.setLast_name(testString);}, "Last name should be rejected as it is too long");
     }
@@ -88,7 +80,7 @@ public class ActorTest
     {
         Actor a = new Actor();
 
-        String testString = buildString(LAST_NAME_LENGTH_LIMIT);
+        String testString = TestTools.buildString(LAST_NAME_LENGTH_LIMIT);
 
         a.setLast_name(testString);
 

@@ -96,9 +96,12 @@ public class Film implements Serializable
         return title;
     }
 
+    final int MAX_TITLE_LENGTH = 60;
     public void setTitle(String title)
     {
-        this.title = title;
+        if(title.length() > 60) throw new RuntimeException("Title too long");
+        if(title.length() < 1) throw new RuntimeException("Title cannot be blank");
+        this.title = title.toUpperCase();
     }
 
     public String getDescription()
