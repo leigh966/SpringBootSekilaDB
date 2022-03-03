@@ -1,5 +1,6 @@
 package org.tsi.leigh.demoTest;
 
+import io.cucumber.java.bs.A;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -115,4 +116,34 @@ public class putRequestCucumberTests
     {
         Assertions.assertEquals(expected, actual, "Save should be successful");
     }
+
+
+    String first_name, last_name;
+    @Given("We have all the fields required for an actor")
+    public void we_have_all_the_fields_required_for_an_actor() {
+        setup();
+        id = 1;
+        first_name = "hhhh";
+        last_name = "hhhh";
+        when(mockController.saveActor(any(Actor.class))).thenReturn("saved");
+
+    }
+
+
+    public Iterable<Actor> getActorList()
+    {
+        ArrayList<Actor> ActorList = new ArrayList<>();
+        ActorList.add(new Actor());
+        return ActorList;
+    }
+    @Given("actor with id exists")
+    public void actor_with_id_exists() {
+        when(mockController.getAllActorsById(anyInt())).thenReturn(getActorList());
+    }
+    @When("A put actor request is received")
+    public void a_put_actor_request_is_received() {
+        actual = app.updateActor(id, first_name, last_name);
+    }
+
+
 }

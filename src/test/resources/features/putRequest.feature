@@ -6,3 +6,8 @@ Feature: Put Request
     And All other film fields okay
     When A put film request is received
     Then The server returns "saved"
+  Scenario: Successfully update an actor
+    Given We have all the fields required for an actor
+    And actor with id exists
+    When A put actor request is received
+    Then The server returns "saved"
