@@ -1,5 +1,6 @@
 package org.tsi.leigh.demo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.aspectj.weaver.ast.Not;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -40,9 +41,10 @@ public class Actor implements Serializable
     final int MAX_LAST_NAME_LENGTH = 30;
 
     public void setLast_name(String last_name)
+            throws NotSavedException
     {
-        if(last_name.length() < 1) throw new RuntimeException("Cannot set last name to nothing");
-        if(last_name.length() > MAX_LAST_NAME_LENGTH) throw new RuntimeException("Last name too long");
+        if(last_name.length() < 1) throw new NotSavedException("Cannot set last name to nothing");
+        if(last_name.length() > MAX_LAST_NAME_LENGTH) throw new NotSavedException("Last name too long");
         else {
             this.last_name = last_name.toUpperCase();
         }

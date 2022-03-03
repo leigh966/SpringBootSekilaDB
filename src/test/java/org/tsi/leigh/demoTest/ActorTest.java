@@ -4,6 +4,7 @@ import io.cucumber.java.bs.A;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.tsi.leigh.demo.Actor;
+import org.tsi.leigh.demo.NotSavedException;
 
 public class ActorTest
 {
@@ -52,7 +53,12 @@ public class ActorTest
     public void testSetLastNameLower()
     {
         Actor a = new Actor();
-        a.setLast_name("blah");
+        try {
+            a.setLast_name("blah");
+        }catch (NotSavedException nse)
+        {
+            Assertions.fail("Save should be successful");
+        }
         Assertions.assertEquals("BLAH", a.getLast_name(), "Last name has not been set to the uppercase of what was provided");
     }
 
@@ -82,7 +88,12 @@ public class ActorTest
 
         String testString = TestTools.buildString(LAST_NAME_LENGTH_LIMIT);
 
-        a.setLast_name(testString);
+        try {
+            a.setLast_name(testString);
+        }catch (NotSavedException nse)
+        {
+            Assertions.fail("Save should be successful");
+        }
 
         Assertions.assertEquals(testString, a.getLast_name(), "First name should update as first_name is within the length limit");
 

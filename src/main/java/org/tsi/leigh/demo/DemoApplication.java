@@ -142,7 +142,16 @@ public class DemoApplication {
         }
         if(last_name != null)
         {
-            a.setLast_name(last_name.toUpperCase());
+            try
+            {
+                a.setLast_name(last_name.toUpperCase());
+            }
+            catch(NotSavedException nse)
+            {
+                return nse.getMessage();
+            }
+
+
         }
         return controller.saveActor(a);
     }
