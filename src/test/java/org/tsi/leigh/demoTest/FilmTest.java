@@ -27,7 +27,7 @@ public class FilmTest
     {
         Film f = new Film();
         String testString = TestTools.buildString(MAX_TITLE_LENGTH+1);
-        Assertions.assertThrows(Exception.class, ()->{f.setTitle("");}, "Blank title should be rejected");
+        Assertions.assertThrows(Exception.class, ()->{f.setTitle(testString);}, "Long title should be rejected");
     }
 
     @Test
