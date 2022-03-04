@@ -134,11 +134,42 @@ public class getRequestCucumberTests
     public void an_actor_in_the_database_contains_the_query() {
         Assertions.assertDoesNotThrow(()->{actors.iterator().next().setFirst_name(query);}, "setting title should not fail");
     }
-    Iterable<Actor> actualActors;
-    @When("We receive a get actor request")
-    public void we_receive_a_get_actor_request() {
-        actualActors = app.getActor(id,query,linkedId);
+
+    Film f;
+    Set<Film> fl;
+    @Given("There is an actor associated with the film_id")
+    public void there_is_a_actor_associated_with_the_film_id() {
+        Assertions.assertDoesNotThrow(()->
+        {f = new Film();
+            f.setFilm_id(linkedId);
+            Actor a = actors.iterator().next();
+            Set<Actor> as = new HashSet<>();
+            as.add(a);
+            f.setActor(as);
+        }, "Creating actor should not fail");
+        fl = new HashSet<>();
+        fl.add(f);
+        actors.iterator().next().setFilms(fl);
+        when(mockController.getAllFilmsById(linkedId)).thenReturn(fl);
+        Assertions.assertEquals(fl, actors.iterator().next().getFilms(), "Sanity check");
+        Assertions.assertEquals(linkedId, actors.iterator().next().getFilms().iterator().next().getFilm_id(), "Sanity check");
+
     }
+    @Then("We return the actor associated with the film_id")
+    public void we_return_the_actor_associated_with_the_film_id() {
+        Assertions.assertEquals(fl,actualActors.iterator().next().getFilms(), "The returned Actor should be associated with the film_id");
+        Assertions.assertEquals(1, ((ArrayList<?>)actualActors).size(), "There should only be one Actor returned");
+
+    }
+
+
+    @When("we receive a get actor request")
+    public void we_receive_a_get_actor_request() {
+        actualActors = app.getActor(null,query,linkedId);
+    }
+
+    Iterable<Actor> actualActors;
+
     @Then("we get the actor that matches the query")
     public void we_get_the_actor_that_matches_the_query() {
         Assertions.assertEquals(actors.iterator().next(), actualActors.iterator().next(), "We should return the item that matches that contains the query");

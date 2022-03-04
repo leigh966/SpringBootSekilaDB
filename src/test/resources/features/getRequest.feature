@@ -25,5 +25,12 @@ Feature: Get Request
     And we have some actors in the database
     And query is "a"
     And An Actor in the database contains the query
-    When We receive a get actor request
+    When we receive a get actor request
     Then we get the actor that matches the query
+  Scenario: Get Actor by film id
+    Given there are no more filters
+    And we have some actors in the database
+    And linked id is 1
+    And There is an actor associated with the film_id
+    When we receive a get actor request
+    Then We return the actor associated with the film_id
