@@ -64,6 +64,7 @@ public class getRequestCucumberTests
             films.add(f);
         }
     }
+
     @Given("query is {string}")
     public void query_is(String q)
     {
@@ -187,7 +188,9 @@ public class getRequestCucumberTests
     public void we_receive_a_get_request() {
         actualFilms = this.app.getFilms(null, query, linkedId);
     }
+
     Iterable<Film> actualFilms;
+
     @Then("we get all the films in the database")
     public void we_get_all_the_films_in_the_database() {
         Assertions.assertEquals(films, actualFilms, "All films should be returned when there is no filters");
@@ -197,6 +200,7 @@ public class getRequestCucumberTests
     public void get_all_match_query()
     {
         Assertions.assertEquals(films.iterator().next(), actualFilms.iterator().next(), "We should return the item that matches that contains the query");
+        Assertions.assertEquals(1, ((ArrayList<?>)actualFilms).size(), "There should only be one film returned");
     }
 
 }
