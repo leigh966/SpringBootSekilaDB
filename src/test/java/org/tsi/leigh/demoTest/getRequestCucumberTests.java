@@ -57,6 +57,17 @@ public class getRequestCucumberTests
             films.add(new Film());
         }
     }
+    @Given("query is {string}")
+    public void query_is(String q)
+    {
+        query = q;
+    }
+
+    @Given("a film title in the database contains the query")
+    public void db_has_contains_query()
+    {
+        Assertions.assertDoesNotThrow(()->{films.iterator().next().setTitle(query.substring(0,1)+"b");}, "setting title should not fail");
+    }
 
     @Given("We have some films in the database")
     public void we_have_some_films_in_the_database() {
@@ -73,6 +84,12 @@ public class getRequestCucumberTests
     @Then("we get all the films in the database")
     public void we_get_all_the_films_in_the_database() {
         Assertions.assertEquals(films, actualFilms, "All films should be returned when there is no filters");
+    }
+
+    @Then("we get the film that matches the query")
+    public void get_all_match_query()
+    {
+        Assertions.assertEquals(films.iterator().next(), actualFilms.iterator().next(), "We should return the item that matches that contains the query");
     }
 
 }
