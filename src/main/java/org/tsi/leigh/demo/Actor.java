@@ -33,6 +33,10 @@ public class Actor implements Serializable
 
     public Actor(){}
 
+    public void setActor_id(int actor_id) {
+        this.actor_id = actor_id;
+    }
+
 
     public String getLast_name()
     {

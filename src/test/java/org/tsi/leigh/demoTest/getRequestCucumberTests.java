@@ -1,5 +1,6 @@
 package org.tsi.leigh.demoTest;
 
+import io.cucumber.java.bs.A;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -8,7 +9,11 @@ import org.mockito.Mock;
 import org.tsi.leigh.demo.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -84,9 +89,43 @@ public class getRequestCucumberTests
         when(mockController.getAllFilms()).thenReturn(films);
 
     }
+
+    @Given("linked id is {int}")
+    public void linked_id_is(Integer int1) {
+        linkedId = int1;
+    }
+
+    Actor a;
+    Set<Actor> al;
+    @Given("There is a film associated with the actor_id")
+    public void there_is_a_film_associated_with_the_actor_id() {
+
+        Assertions.assertDoesNotThrow(()->
+        {a = new Actor("blah", "blah");
+            a.setActor_id(linkedId);
+            Film f = films.iterator().next();
+            Set<Film> fs = new HashSet<>();
+            fs.add(f);
+            a.setFilms(fs);
+            }, "Creating actor should not fail");
+        al = new HashSet<>();
+        al.add(a);
+        films.iterator().next().setActor(al);
+        when(mockController.getAllActorsById(linkedId)).thenReturn(al);
+        Assertions.assertEquals(al, films.iterator().next().getActor(), "Sanity check");
+        Assertions.assertEquals(linkedId, films.iterator().next().getActor().iterator().next().getActor_id(), "Sanity check");
+    }
+
+    @Then("We return the film associated with the actor_id")
+    public void we_return_the_film_associated_with_the_actor_id() {
+        Assertions.assertEquals(al,actualFilms.iterator().next().getActor(), "The returned Film should be associated with the actor_id");
+        Assertions.assertEquals(1, ((ArrayList<?>)actualFilms).size(), "There should only be one film returned");
+    }
+
+
     @When("we receive a get film request")
     public void we_receive_a_get_request() {
-        actualFilms = this.app.getFilms(null, query, null);
+        actualFilms = this.app.getFilms(null, query, linkedId);
     }
     Iterable<Film> actualFilms;
     @Then("we get all the films in the database")
