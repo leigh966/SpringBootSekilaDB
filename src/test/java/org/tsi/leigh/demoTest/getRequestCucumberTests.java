@@ -65,6 +65,12 @@ public class getRequestCucumberTests
         query = q;
     }
 
+    @Given("a film title in the database is equal to the query")
+    public void db_has_equals_query()
+    {
+        Assertions.assertDoesNotThrow(()->{films.iterator().next().setTitle(query);}, "setting title should not fail");
+    }
+
     @Given("a film title in the database contains the query")
     public void db_has_contains_query()
     {
