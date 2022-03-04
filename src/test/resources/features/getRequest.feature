@@ -20,3 +20,10 @@ Feature: Get Request
     And There is a film associated with the actor_id
     When we receive a get film request
     Then We return the film associated with the actor_id
+  Scenario: Get Actor Containing query
+    Given there are no more filters
+    And we have some actors in the database
+    And query is "a"
+    And An Actor in the database contains the query
+    When We receive a get actor request
+    Then we get the actor that matches the query

@@ -116,6 +116,35 @@ public class getRequestCucumberTests
         Assertions.assertEquals(linkedId, films.iterator().next().getActor().iterator().next().getActor_id(), "Sanity check");
     }
 
+    ArrayList<Actor> actors;
+
+    @Given("we have some actors in the database")
+    public void actors_in_db()
+    {
+        setup();
+        actors = new ArrayList<>();
+        for(int i = 0; i < 3; i++)
+        {
+            actors.add(new Actor());
+        }
+        when(mockController.getAllActors()).thenReturn(actors);
+    }
+
+    @Given("An Actor in the database contains the query")
+    public void an_actor_in_the_database_contains_the_query() {
+        Assertions.assertDoesNotThrow(()->{actors.iterator().next().setFirst_name(query);}, "setting title should not fail");
+    }
+    Iterable<Actor> actualActors;
+    @When("We receive a get actor request")
+    public void we_receive_a_get_actor_request() {
+        actualActors = app.getActor(id,query,linkedId);
+    }
+    @Then("we get the actor that matches the query")
+    public void we_get_the_actor_that_matches_the_query() {
+        Assertions.assertEquals(actors.iterator().next(), actualActors.iterator().next(), "We should return the item that matches that contains the query");
+    }
+
+
     @Then("We return the film associated with the actor_id")
     public void we_return_the_film_associated_with_the_actor_id() {
         Assertions.assertEquals(al,actualFilms.iterator().next().getActor(), "The returned Film should be associated with the actor_id");
