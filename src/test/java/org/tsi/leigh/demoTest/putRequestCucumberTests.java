@@ -21,15 +21,15 @@ public class putRequestCucumberTests
 
     private String title;
     private String description;
-    private int release_year;
-    private int language_id;
+    private Integer release_year;
+    private Integer language_id;
 
     private Integer original_language_id;
 
-    private int rental_duration;
-    private float rental_rate;
+    private Integer rental_duration;
+    private Float rental_rate;
     private Integer length;
-    private float replacement_cost;
+    private Float replacement_cost;
     private String rating;
     @Mock
     private LanguageRepository languageRepo; // Fake language table
@@ -69,7 +69,7 @@ public class putRequestCucumberTests
         rental_duration = 0;
         rental_rate = 0f;
         length = 0;
-        replacement_cost = 0;
+        replacement_cost = 0f;
         rating = "R";
     }
 
@@ -97,6 +97,38 @@ public class putRequestCucumberTests
     {
         when(mockController.getAllLanguagesById(anyInt())).thenReturn(getLanguageList());
     }
+
+    @Given("all film fields are null")
+    public void all_film_fields_are_null() {
+        setup();
+        id=1;
+        title = null;
+        description = null;
+        release_year = null;
+        language_id = null;
+        original_language_id = null;
+        rental_duration = null;
+        rental_rate = null;
+        length = null;
+        replacement_cost = null;
+        rating = null;
+    }
+
+    @Given("all actor fields are null")
+    public void all_actor_fields_are_null() {
+        setup();
+        id=1;
+        first_name = null;
+        last_name = null;
+        when(mockController.saveActor(any(Actor.class))).thenReturn("saved");
+    }
+
+    @Given("id is {int}")
+    public void id_is(Integer int1) {
+        id = int1;
+    }
+
+
 
     @Given("All other film fields okay")
         public void all_okay()
