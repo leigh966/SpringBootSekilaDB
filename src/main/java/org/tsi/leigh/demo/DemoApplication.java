@@ -214,7 +214,7 @@ public class DemoApplication {
             Iterator<Actor> actorIt = getActor(actor_id, null, null).iterator();
             if(!actorIt.hasNext()) // No actor of this id found
             {
-                throw new ResourceNotFoundException("Actor of id " + actor_id + " does not exist");
+                return  null;
             }
             Actor a = actorIt.next();
             Set<Film> actorFilms = a.getFilms();
