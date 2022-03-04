@@ -54,7 +54,9 @@ public class getRequestCucumberTests
     {
         for(int i = 0; i<3; i++)
         {
-            films.add(new Film());
+            Film f = new Film();
+            Assertions.assertDoesNotThrow(()->{f.setTitle("gom");}, "Setting title should not fail");
+            films.add(f);
         }
     }
     @Given("query is {string}")
@@ -78,7 +80,7 @@ public class getRequestCucumberTests
     }
     @When("we receive a get film request")
     public void we_receive_a_get_request() {
-        actualFilms = this.app.getFilms(null, null, null);
+        actualFilms = this.app.getFilms(null, query, null);
     }
     Iterable<Film> actualFilms;
     @Then("we get all the films in the database")
