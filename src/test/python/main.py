@@ -34,12 +34,6 @@ test_results = [
     testGet.test_get_actor_lower(root), # Lower-case
     # Try to get get a non-existant actor by id - making sure it gives an empty list rather than an error
     testGet.test_get_null_actor(root),
-    # Try to link an actor and a film that exist and are not already linked - making sure a link works in basic case
-    testPost.test_link_valid_film_actor(root),    # Request the link and ensure the backend says it has worked
-    testGet.verify_link(root, 2, 1), # Verify that the link has actually occurred in the database
-    # Try to unlink the actor and film that we have just linked
-    testDelete.test_unlink_added_film_actor_link(root), # Request the unlink and ensure the backend says it has worked
-    testGet.verify_no_link(root, 2, 1), # Verify that the unlink has actually occurred in the database
     # Try to get a film by the actor_id of an actor that is in it
     testGet.test_get_films_by_actor_id(root)
 ]
